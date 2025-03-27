@@ -1,0 +1,62 @@
+# Prerequisites
+*.d
+keys.txt
+# Object files
+*.o
+*.ko
+macros.encrypt_key.h
+vgcore*
+RagCraft
+*.obj
+*.elf
+.cache
+dependencies
+AiRagTemplate
+globals.assets.c
+.cacherag
+assets/docs
+# Linker output
+*.ilk
+.vscode
+*.map
+*.exp
+release
+src/imports
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+*.hex
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+libs
