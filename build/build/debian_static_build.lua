@@ -1,5 +1,6 @@
 local debian_static_build_done = false
 function debian_static_build()
+    print("\tstart container debian")
     if debian_static_build_done then
         return
     end

@@ -39,7 +39,7 @@ function main()
     Install_dependencies()
     create_assets()
     silver_chain_organize()
-  
+
     local build_funcs = create_build_funcs()
 
 
@@ -47,7 +47,8 @@ function main()
     darwin.dtw.remove_any(".cache")
     local i = 1
     for name, buld_lambda in pairs(build_funcs) do
-        if darwin.argv.one_of_args_exist(name) then
+        local existe = darwin.argv.one_of_args_exist(name)
+        if existe then
             print("\n=========================================================================================")
             print("\tstarted of build:", i, "\n")
             buld_lambda()

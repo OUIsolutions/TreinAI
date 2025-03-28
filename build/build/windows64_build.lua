@@ -1,5 +1,6 @@
 local windows_build_done = false
 function windowsi64_build()
+    print("\tstart container WIN64")
     if windows_build_done then
         return
     end

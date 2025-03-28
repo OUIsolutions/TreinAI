@@ -1,5 +1,6 @@
 local windows_build_done = false
 function windowsi32_build()
+    print("\tstart container WIN32")
     if windows_build_done then
         return
     end
