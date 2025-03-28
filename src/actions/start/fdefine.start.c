@@ -94,6 +94,17 @@ int start_action(){
           #endif
           continue;
         }
+        if(strcmp(message,"reset") == 0){
+          openai.openai_interface.free(openAi);
+          openAi = initialize_openai_interface();
+          printf("%sConversation reset.%s\n", GREEN, RESET);
+          #ifdef _WIN32
+            system("cls");
+          #else
+            system("clear");
+          #endif
+          continue;
+        }
         openai.openai_interface.add_user_prompt(openAi, message);
 
         OpenAiResponse *response =  OpenAiInterface_make_question_finish_reason_treated(openAi);
