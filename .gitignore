@@ -2,6 +2,7 @@
 *.d
 keys.txt
 # Object files
+TreinAI
 *.o
 *.ko
 macros.encrypt_key.h
