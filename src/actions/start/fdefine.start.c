@@ -57,6 +57,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_list_recursively_callbacks(openAi,props->model);
     configure_read_file_callbacks(openAi,props->model);
     configure_move_item_callbacks(openAi,props->model);
+    configure_copy_item_callbacks(openAi,props->model);
     configure_write_file_callbacks(openAi, props->model);
     configure_execute_command_callbacks(openAi,props->model);
     configure_remove_file_callbacks(openAi,props->model);
