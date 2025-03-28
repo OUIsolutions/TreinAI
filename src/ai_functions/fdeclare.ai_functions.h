@@ -6,8 +6,6 @@
 //silver_chain_scope_end
 
 
-char *agent_list_recursively(cJSON *args, void *pointer);
-
 void configure_list_recursively_callbacks(OpenAiInterface *openAi,const char *model);
 
 char *agent_read_file(cJSON *args, void *pointer);
