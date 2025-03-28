@@ -37,13 +37,11 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     Asset * main_system_rules = get_asset("system_instructions.json");
     if(!main_system_rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
-      freeModelProps(props);
       return NULL;
     }
     cJSON *rules = cJSON_Parse((char*)main_system_rules->data);
     if(!rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
-      freeModelProps(props);
       return NULL;
     }
     int size = cJSON_GetArraySize(rules);
@@ -65,7 +63,6 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_terminate_callbacks(openAi,props->model);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
     cJSON_Delete(rules);
-    freeModelProps(props);
     return openAi;
 }
 
@@ -97,15 +94,16 @@ int start_action(){
           #endif
           continue;
         }
-        if(strcmp(message,"reset") == 0){
-          openai.openai_interface.free(openAi);
-          openAi = initialize_openai_interface(props);
+        if(strcmp(message,"resset") == 0){
+
           printf("%sConversation reset.%s\n", GREEN, RESET);
           #ifdef _WIN32
             system("cls");
           #else
             system("clear");
           #endif
+          openai.openai_interface.free(openAi);
+          openAi = initialize_openai_interface(props);
           continue;
         }
         openai.openai_interface.add_user_prompt(openAi, message);
@@ -125,6 +123,7 @@ int start_action(){
         openai.openai_interface.add_response_to_history(openAi, response,0);
         free(message);
     }  
+    freeModelProps(props);
     openai.openai_interface.free(openAi);
 
     return 0;
