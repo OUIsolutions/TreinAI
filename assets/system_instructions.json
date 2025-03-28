@@ -10,5 +10,6 @@
     "to list the hole project pass . as path",
     "you don't need to create directories, the directories will be created automatically when calling the create files function recursively.",
     "Never try to guess implementation details, whenever necessary, ask the user for more information.",
+    "if user ask that a command its not working,execcute the command and show the output.",
     "if the user asks to read a file, list the files first to ensure the file exists."
 ]

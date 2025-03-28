@@ -12,22 +12,32 @@ char *agent_execute_command(cJSON *args, void *pointer){
     }
     int result = system(command->valuestring);
     printf("%s %s EXECUTED COMMAND: %s\n", YELLOW, model, command->valuestring, RESET);
-    char *output = NULL;
+    const int READ_SIZE = 100;
+
+    char *output = calloc(READ_SIZE+1,sizeof(char));
+    int output_allocated = READ_SIZE+1;
+    int output_size = 0;
     FILE *fp = popen(command->valuestring, "r");
     if (fp) {
-        char buffer[128];
-        size_t len = 0;
-        while (fgets(buffer, sizeof(buffer), fp) != NULL) {
-            size_t buffer_len = strlen(buffer);
-            output = realloc(output, len + buffer_len + 1);
-            memcpy(output + len, buffer, buffer_len);
-            len += buffer_len;
+        while(true){
+            if(output_size + READ_SIZE > output_allocated){
+                output_allocated = READ_SIZE + (output_allocated * 2);
+                output = realloc(output, output_allocated);
+            }
+
+            int total_read =  fread(output + output_size, 1, READ_SIZE-1, fp);
+            if(total_read <= 0){
+                break;
+            }
+            output_size += total_read;
+            output[output_size] = '\0';
         }
-        pclose(fp);
-        output[len] = '\0';
+        fclose(fp);
     }
+    printf("chegou aqui\n");
     char *result_str = (char*)malloc(strlen(output) + 100);
-    sprintf(result_str, "Command: %s\nOutput:\n%s\nStatus Code: %d", command->valuestring, output ? output : "", result);
+    sprintf(result_str, "status: %s\nOutput: %s", result, output);
+    printf("%s %s OUTPUT: %s\n", YELLOW, model, output);
     free(output);
     return result_str;
 }
