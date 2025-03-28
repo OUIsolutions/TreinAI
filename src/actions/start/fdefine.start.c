@@ -30,11 +30,8 @@ char * collect_user_input(){
   return buffer;
 }
 
-OpenAiInterface* initialize_openai_interface(){
-    ModelProps *props = collect_model_props();
-    if(!props){
-        return NULL;
-    }
+OpenAiInterface* initialize_openai_interface( ModelProps *props){
+
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
     
     Asset * main_system_rules = get_asset("system_instructions.json");
@@ -73,7 +70,13 @@ OpenAiInterface* initialize_openai_interface(){
 }
 
 int start_action(){
-    OpenAiInterface *openAi = initialize_openai_interface();
+
+    ModelProps *props = collect_model_props();
+    if(!props){
+        return 1;
+    }
+
+    OpenAiInterface *openAi = initialize_openai_interface(props);
     if(!openAi){
         return 1;
     }
@@ -118,7 +121,7 @@ int start_action(){
           free(message);
           break;
         }
-        printf("%s < %s: %s%s\n", BLUE,openAi->model, first_answer, RESET);
+        printf("%s < %s: %s%s\n", BLUE,props->model, first_answer, RESET);
         openai.openai_interface.add_response_to_history(openAi, response,0);
         free(message);
     }  
