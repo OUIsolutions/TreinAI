@@ -30,23 +30,24 @@ char * collect_user_input(){
   return buffer;
 }
 
-int start_action(){
-    
-    ModelProps *props =collect_model_props();
+OpenAiInterface* initialize_openai_interface(){
+    ModelProps *props = collect_model_props();
     if(!props){
-        return 1;
+        return NULL;
     }
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
     
     Asset * main_system_rules = get_asset("system_instructions.json");
     if(!main_system_rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
-      return 1;
+      freeModelProps(props);
+      return NULL;
     }
     cJSON *rules = cJSON_Parse((char*)main_system_rules->data);
     if(!rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
-      return 1;
+      freeModelProps(props);
+      return NULL;
     }
     int size = cJSON_GetArraySize(rules);
 
@@ -66,6 +67,17 @@ int start_action(){
 
     configure_terminate_callbacks(openAi,props->model);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
+    cJSON_Delete(rules);
+    freeModelProps(props);
+    return openAi;
+}
+
+int start_action(){
+    OpenAiInterface *openAi = initialize_openai_interface();
+    if(!openAi){
+        return 1;
+    }
+    
     while (true){
         printf("%s >Your Message:%s", GREEN,PURPLE);
        fflush(stdout);
@@ -95,13 +107,11 @@ int start_action(){
           free(message);
           break;
         }
-        printf("%s < %s: %s%s\n", BLUE,props->model, first_answer, RESET);
+        printf("%s < %s: %s%s\n", BLUE,openAi->model, first_answer, RESET);
         openai.openai_interface.add_response_to_history(openAi, response,0);
         free(message);
     }  
-    cJSON_Delete(rules);
     openai.openai_interface.free(openAi);
-    freeModelProps(props);
 
     return 0;
 }
