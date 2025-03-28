@@ -33,11 +33,11 @@ function main()
         return
     end
     darwin.silverchain.remove("src")
-    
+
     create_encrypt_key(encrypt_key)
 
     Install_dependencies()
-    create_assets()    
+    create_assets()
     silver_chain_organize()
   
     local build_funcs = create_build_funcs()

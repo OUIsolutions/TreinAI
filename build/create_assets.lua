@@ -2,8 +2,6 @@
 function create_assets_internal()
 
     darwin.dtw.remove_any("src/assets/globals.assets.c")
-    darwin.dtw.copy_any_overwriting("docs", "assets/docs")
- 
     local assset_contents = io.open("src/assets/globals.assets.c","a")
 
     assset_contents:write("Asset assets[] = {\n")

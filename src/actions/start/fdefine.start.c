@@ -38,15 +38,6 @@ int start_action(){
     }
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
     
-    
-    Asset *sao_paulo_slangs = get_asset("sao_paulo_slangs.txt");
-    if(!sao_paulo_slangs){
-      printf("%sError: %s%s\n", RED, "No sao paulo slangs found", RESET);
-      return 1;
-    }
-    openai.openai_interface.add_system_prompt(openAi,(char*)sao_paulo_slangs->data);
-
-
     Asset * main_system_rules = get_asset("system_instructions.json");
     if(!main_system_rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
@@ -67,7 +58,6 @@ int start_action(){
     snprintf(name_message,sizeof(name_message)-1,"your model base  its %s",props->model);
 
     openai.openai_interface.add_system_prompt(openAi,name_message);
-    configure_read_asset_callbacks(openAi,props->model);
     configure_list_recursively_callbacks(openAi,props->model);
     configure_read_file_callbacks(openAi,props->model);
     configure_write_file_callbacks(openAi, props->model);
@@ -75,7 +65,7 @@ int start_action(){
     configure_remove_file_callbacks(openAi,props->model);
 
     configure_terminate_callbacks(openAi,props->model);
-    printf("%sWelcome to the Ragcraft, runing: %s interface%s\n", BLUE,props->model , RESET);
+    printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
     while (true){
         printf("%s >Your Message:%s", GREEN,PURPLE);
        fflush(stdout);
@@ -109,7 +99,6 @@ int start_action(){
         openai.openai_interface.add_response_to_history(openAi, response,0);
         free(message);
     }  
-    printf("%sGoodbye%s\n", BLUE, RESET);
     cJSON_Delete(rules);
     openai.openai_interface.free(openAi);
     freeModelProps(props);

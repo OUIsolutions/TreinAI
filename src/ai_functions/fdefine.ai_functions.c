@@ -5,46 +5,6 @@
 #include "../imports/imports.globals.h"
 //silver_chain_scope_end
 
-char *agent_get_ai_chosen_asset(cJSON *args, void *pointer){
-  const char *model = (const char*)pointer;
-  cJSON *asset = cJSON_GetObjectItem(args, "doc");
-  if(!cJSON_IsString(asset)){
-        return NULL;
-  }
-  printf("%s %s READDED DOCS: %s\n",YELLOW,model, asset->valuestring, RESET);
-
-  Asset *current_aset = get_asset(asset->valuestring);
-
-  if(!current_aset){
-    return NULL;
-  }
-
-  return (char*)current_aset->data;
-}
-
-
-void configure_read_asset_callbacks(OpenAiInterface *openAi,const char *model){
-    cJSON *assets_json = cJSON_CreateArray();
-    DtwStringArray *all_assets = list_assets_recursively("docs");
-    for(int i = 0; i < all_assets->size; i++){
-        cJSON_AddItemToArray(assets_json, cJSON_CreateString(all_assets->strings[i]));
-    }
-    char *assets_printed = cJSON_PrintUnformatted(assets_json);
-    char *message = (char*)malloc(strlen(assets_printed) + 100);
-    sprintf(message, "The following docs are available: %s", assets_printed);
-            
-    openai.openai_interface.add_system_prompt(openAi,message);
-    OpenAiCallback *callback = new_OpenAiCallback(agent_get_ai_chosen_asset, (void*)model, "get_doc", "get a documentation text", false);
-    OpenAiInterface_add_parameters_in_callback(callback, "doc", "Pass the name of doc you want to read.", "string", true);
-    OpenAiInterface_add_callback_function_by_tools(openAi, callback);
-
-    free(message);
-    dtw.string_array.free(all_assets);
-    free(assets_printed);
-    cJSON_Delete(assets_json);
-}
-
-
 char *agent_list_recursively(cJSON *args, void *pointer){
     const char *model = (const char*)pointer;
     cJSON *path = cJSON_GetObjectItem(args, "path");
