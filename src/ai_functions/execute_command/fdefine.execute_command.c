@@ -11,37 +11,16 @@ char *agent_execute_command(cJSON *args, void *pointer){
     if(!cJSON_IsString(command)){
         return NULL;
     }
-    printf("%s %s EXECUTED COMMAND: %s\n", YELLOW, model, command->valuestring, RESET);
-    const int READ_SIZE = 100;
-    char *output = calloc(READ_SIZE+1,sizeof(char));
-
-    int output_allocated = READ_SIZE+1;
-    int output_size = 0;
-    FILE *fp = popen(command->valuestring, "r");
-    if (fp == NULL) {
-        free(output);
-        return NULL; 
-    }
-    while(true){
-        if((output_size + READ_SIZE) > output_allocated){
-            output_allocated = READ_SIZE + (output_allocated * 2);
-            output = realloc(output, output_allocated);
-        }
-        output[output_size] = fgetc(fp);
-        if(output[output_size] == EOF){
-            output[output_size] = '\0';
-            break;
-        }
-        output_size++;
-        
-
-
-    }
-    printf("output_size: %s\n",output);
-    int result = pclose(fp);
+    char *full_command = (char*)malloc(strlen(command->valuestring) + 100);
+    sprintf(full_command, "%s  &> cache.txt", command->valuestring);
+    int result = system(full_command);    
+    char *output = dtw.load_string_file_content("cache.txt");
+    free(full_command);
+    dtw.remove_any("cache.txt");
     char *result_str = (char*)malloc(strlen(output) + 100);
     sprintf(result_str, "status: %d\nOutput:\n%s", result, output);
     free(output);
+    printf("%s %s EXECUTED COMMAND: %s\n", YELLOW, model, command->valuestring, RESET);
     return result_str;
 }
 

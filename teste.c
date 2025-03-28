@@ -1,7 +1,5 @@
 #include <stdio.h>
 
-
-int main(){
-
-    printf("eai beleza\n")
+int main() {
+    printf("eai beleza\n");
 }
