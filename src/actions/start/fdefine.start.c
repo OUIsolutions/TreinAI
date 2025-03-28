@@ -99,7 +99,7 @@ int start_action(){
         }
         if(strcmp(message,"reset") == 0){
           openai.openai_interface.free(openAi);
-          openAi = initialize_openai_interface();
+          openAi = initialize_openai_interface(props);
           printf("%sConversation reset.%s\n", GREEN, RESET);
           #ifdef _WIN32
             system("cls");
