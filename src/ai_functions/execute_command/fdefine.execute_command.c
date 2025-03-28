@@ -27,18 +27,17 @@ char *agent_execute_command(cJSON *args, void *pointer){
             output_allocated = READ_SIZE + (output_allocated * 2);
             output = realloc(output, output_allocated);
         }
-
-        int total_read =  fread(output + output_size, sizeof(char), READ_SIZE-1, fp);
-        printf("total_read: %d\n", total_read);
-        if(total_read <= 0){
+        output[output_size] = fgetc(fp);
+        if(output[output_size] == EOF){
+            output[output_size] = '\0';
             break;
         }
+        output_size++;
+        
 
-        output_size += total_read;
-        output[output_size] = '\0';
 
     }
-
+    printf("output_size: %s\n",output);
     int result = pclose(fp);
     char *result_str = (char*)malloc(strlen(output) + 100);
     sprintf(result_str, "status: %d\nOutput:\n%s", result, output);
