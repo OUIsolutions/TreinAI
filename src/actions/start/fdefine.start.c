@@ -30,23 +30,19 @@ char * collect_user_input(){
   return buffer;
 }
 
-int start_action(){
-    
-    ModelProps *props =collect_model_props();
-    if(!props){
-        return 1;
-    }
+OpenAiInterface* initialize_openai_interface( ModelProps *props){
+
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
     
     Asset * main_system_rules = get_asset("system_instructions.json");
     if(!main_system_rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
-      return 1;
+      return NULL;
     }
     cJSON *rules = cJSON_Parse((char*)main_system_rules->data);
     if(!rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
-      return 1;
+      return NULL;
     }
     int size = cJSON_GetArraySize(rules);
 
@@ -60,12 +56,30 @@ int start_action(){
     openai.openai_interface.add_system_prompt(openAi,name_message);
     configure_list_recursively_callbacks(openAi,props->model);
     configure_read_file_callbacks(openAi,props->model);
+    configure_move_item_callbacks(openAi,props->model);
+    configure_copy_item_callbacks(openAi,props->model);
     configure_write_file_callbacks(openAi, props->model);
     configure_execute_command_callbacks(openAi,props->model);
     configure_remove_file_callbacks(openAi,props->model);
 
     configure_terminate_callbacks(openAi,props->model);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
+    cJSON_Delete(rules);
+    return openAi;
+}
+
+int start_action(){
+
+    ModelProps *props = collect_model_props();
+    if(!props){
+        return 1;
+    }
+
+    OpenAiInterface *openAi = initialize_openai_interface(props);
+    if(!openAi){
+        return 1;
+    }
+    
     while (true){
         printf("%s >Your Message:%s", GREEN,PURPLE);
        fflush(stdout);
@@ -80,6 +94,18 @@ int start_action(){
           #else
             system("clear");
           #endif
+          continue;
+        }
+        if(strcmp(message,"resset") == 0){
+
+          printf("%sConversation reset.%s\n", GREEN, RESET);
+          #ifdef _WIN32
+            system("cls");
+          #else
+            system("clear");
+          #endif
+          openai.openai_interface.free(openAi);
+          openAi = initialize_openai_interface(props);
           continue;
         }
         openai.openai_interface.add_user_prompt(openAi, message);
@@ -99,9 +125,8 @@ int start_action(){
         openai.openai_interface.add_response_to_history(openAi, response,0);
         free(message);
     }  
-    cJSON_Delete(rules);
-    openai.openai_interface.free(openAi);
     freeModelProps(props);
+    openai.openai_interface.free(openAi);
 
     return 0;
 }
