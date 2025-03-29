@@ -5,7 +5,6 @@
 #include "../../imports/imports.globals.h"
 //silver_chain_scope_end
 
-
 char *agent_get_url(cJSON *args, void *pointer){
     const char *model = (const char*)pointer;
     cJSON *url = cJSON_GetObjectItem(args, "url");
@@ -25,7 +24,7 @@ char *agent_get_url(cJSON *args, void *pointer){
         char *error = strdup(bear.response.get_error_msg(response));
         bear.request.free(request);
         bear.response.free(response);
-        return 1;
+        return error;
     }
     char *bdy_copy = strdup(body);
     bear.request.free(request);
