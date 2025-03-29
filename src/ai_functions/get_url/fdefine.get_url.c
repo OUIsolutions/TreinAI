@@ -11,6 +11,7 @@ char *agent_get_url(cJSON *args, void *pointer){
     if(!cJSON_IsString(url)){
         return NULL;
     }
+    printf("%s %s GETTING URL: %s\n",YELLOW,model,url->valuestring, RESET);
     BearHttpsRequest *request = bear.request.newBearHttpsRequest(url->valuestring);
     BearHttpsResponse *response = bear.request.fetch(request);
     if(bear.response.error(response)){
