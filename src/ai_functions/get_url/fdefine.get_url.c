@@ -25,7 +25,7 @@ char *agent_get_url(cJSON *args, void *pointer){
         char *error = strdup(bear.response.get_error_msg(response));
         bear.request.free(request);
         bear.response.free(response);
-        return error;
+        return 1;
     }
     char *bdy_copy = strdup(body);
     bear.request.free(request);
