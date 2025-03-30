@@ -7,7 +7,7 @@
   - if its to test a container , creates and launch that container and end build
 
 - creates the encryption key (basically its creates a file called **src/macros.encrypt_key.h** ) containing 
-  a macro called **Ragcraft_get_key** that its used to get the encryption key 
+  a macro called **TremAi_get_key** that its used to get the encryption key 
   check [key_obfuscate](https://github.com/OUIsolutions/key_obfuscate) for more details
   
 - Installs the dependencies
@@ -18,10 +18,10 @@
 
 ### Build Functions
 
-- [amalgamation_build](/build/build/amalgamation_build.lua) generate the **release/Ragcraft.c** file that contains all the source code of the project
-- [alpine_static_build.lua](/build/build/alpine_static_build.lua) build the project using alpine linux and static linking and generates the **release/Ragcraft.out** binary
-- [debian_static_build.lua](/build/build/debian_static_build.lua) build the **release/Ragcraft.deb** package
-- [local_linux_build.lua](/build/build/local_linux_build.lua) build the project using the local linux and generates the **Ragcraft** binary in the root folder of the project
-- [rpm_static_build.lua](/build/build/rpm_static_build.lua) build the **release/Ragcraft.rpm** package
-- [windows64_build.lua](/build/build/windows64_build.lua) build the project using windows 64bits and generates the **release/Ragcraft64.exe** binary
-- [windowsi32_build.lua](/build/build/windowsi32_build.lua) build the project using windows 32bits and generates the **release/Ragcrafti32.exe** binary
+- [amalgamation_build](/build/build/amalgamation_build.lua) generate the **release/TremAi.c** file that contains all the source code of the project
+- [alpine_static_build.lua](/build/build/alpine_static_build.lua) build the project using alpine linux and static linking and generates the **release/TremAi.out** binary
+- [debian_static_build.lua](/build/build/debian_static_build.lua) build the **release/TremAi.deb** package
+- [local_linux_build.lua](/build/build/local_linux_build.lua) build the project using the local linux and generates the **TremAi** binary in the root folder of the project
+- [rpm_static_build.lua](/build/build/rpm_static_build.lua) build the **release/TremAi.rpm** package
+- [windows64_build.lua](/build/build/windows64_build.lua) build the project using windows 64bits and generates the **release/TremAi64.exe** binary
+- [windowsi32_build.lua](/build/build/windowsi32_build.lua) build the project using windows 32bits and generates the **release/TremAii32.exe** binary
