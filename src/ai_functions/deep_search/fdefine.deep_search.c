@@ -82,6 +82,7 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         OpenAiInterface *resume = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
         openai.openai_interface.set_cache(resume, ".cache_dir", true);
         openai.openai_interface.add_system_prompt(resume,"Your task is to make the resume of at max 1000 chars the document");
+        openai.openai_interface.add_system_prompt(resume,"include all class, global variables,methods, functions that are in the document");
         openai.openai_interface.add_system_prompt(resume,"return only the resume of the document");
         openai.openai_interface.add_user_prompt(resume, raw_content);
         OpenAiResponse *response = openai.openai_interface.make_question(resume);
