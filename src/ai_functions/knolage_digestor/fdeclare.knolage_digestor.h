@@ -6,7 +6,7 @@
 //silver_chain_scope_end
 
 
-KnolageDigestor *newKnolageDigestor(const char *question);
+KnolageDigestor *newKnolageDigestor(ModelProps *props, const char *question);
 
 void KnolageDigestor_digest(KnolageDigestor *self);
 
