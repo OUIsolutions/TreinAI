@@ -5,5 +5,6 @@
     "ony consider given informations, dont make assumptions",
     "if the current_item information its usless, dont make nothing",
     "if the current_item information agregate value, improve the text",
-    "always respond with response set or nothing usefull"
+    "always respond with response set or nothing usefull",
+    "dont add unnecesary information",
 ]
