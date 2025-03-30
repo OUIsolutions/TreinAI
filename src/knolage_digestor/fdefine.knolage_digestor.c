@@ -30,8 +30,9 @@ KnolageDigestor *newKnolageDigestor(ModelProps *props, const char *question){
       return NULL;
     }
     char *question_formmated = (char*)malloc(strlen(question)+100);
-    snprintf(question_formmated,strlen(question)+100,"The question is: %s",question);
+    snprintf(question_formmated,strlen(question)+100,"question: %s",question);
     openai.openai_interface.add_system_prompt(openAi,question);
+    
 
     int size = cJSON_GetArraySize(rules);
     for(int i = 0; i <size;i++){
