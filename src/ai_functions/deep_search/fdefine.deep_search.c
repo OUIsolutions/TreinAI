@@ -27,19 +27,24 @@ char *agent_deep_search(cJSON *args, void *pointer){
     
     printf("%sSTARTING DEEP SEARCH FOR QUESTION: %s\n%s",YELLOW, question->valuestring, RESET);
     cJSON *aproved  = cJSON_CreateArray();
-
-    DtwStringArray *doc_dir = dtw.list_files_recursively(".",DTW_CONCAT_PATH);
+    char *current_dir = dtw_get_current_dir();
+    DtwStringArray *doc_dir = dtw.list_files_recursively(current_dir,false);
     for(int i = 0; i < doc_dir->size; i++){
         int rate = 0;
 
-        char *path = doc_dir->strings[i];
-
-         bool is_hidden = dtw_starts_with(path, ".");
+        char *raw_path = doc_dir->strings[i];
+         bool is_hidden = dtw_starts_with(raw_path, ".");
         if(is_hidden){
+            printf("ignored %s\n",raw_path);
             continue;
         }
-
+        
+        char *path = dtw.concat_path(current_dir,raw_path);
         char *content = dtw.load_string_file_content(path);
+
+        if(content == NULL){
+            continue;
+        }
 
 
         for(int j=0; j < 10;j++){
