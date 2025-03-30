@@ -84,8 +84,7 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         openai.openai_interface.set_cache(openAi, ".cache_dir", true);
         
         // Configurar callback
-        OpenAiCallback *callback = new_OpenAiCallback(agent_set_status, &aproved, "set_status", 
-                                                        "determine if a content its usefull or crap", false);
+        OpenAiCallback *callback = new_OpenAiCallback(agent_set_status, &aproved, "set_status",  "determine if a content its usefull or crap", false);
         OpenAiInterface_add_parameters_in_callback(callback, "status", "set usefull if the element its usefull to solve the question or crap if its usless", "string", true);
         OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 
@@ -97,14 +96,13 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         sprintf(question_str, "Question: %s", question->valuestring);
         openai.openai_interface.add_system_prompt(openAi, question_str);
       
+
         char *content_prompt = malloc(strlen(content) + 100);
         sprintf(content_prompt, "Content: %s",content);
         openai.openai_interface.add_system_prompt(openAi, content_prompt);
     
-
         // Fazer a classificação
         OpenAiResponse *response = OpenAiInterface_make_question_finish_reason_treated(openAi);
-        openai.openai_interface.free(openAi);
         if(openai.response.error(response)){
             printf("%sError: %s%s\n", RED, openai.response.get_error_message(response), RESET);
             continue;
@@ -114,7 +112,10 @@ char *agent_deep_search(cJSON *args, void *pointer) {
             printf("%sDocument %s is approved%s\n", GREEN, path, RESET);
            cJSON_AddItemToArray(approved, cJSON_CreateString(path));
         }
-        
+        else{
+            printf("%sDocument %s is not approved%s\n", RED, path, RESET);
+        }
+        openai.openai_interface.free(openAi);
     }
    
    
