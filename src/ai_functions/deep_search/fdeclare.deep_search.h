@@ -12,4 +12,4 @@
 char *agent_deep_search(cJSON *args, void *pointer);
 
 
-void configure_deep_search(OpenAiInterface *openAi,ModelProps *model;
+void configure_deep_search(OpenAiInterface *openAi,ModelProps *model);

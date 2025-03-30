@@ -30,7 +30,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     snprintf(name_message,sizeof(name_message)-1,"your model base  its %s",props->model);
 
     openai.openai_interface.add_system_prompt(openAi,name_message);
-    configure_search_how_to(openAi,props);
+    configure_deep_search(openAi,props);
     configure_list_recursively_callbacks(openAi,props);
     configure_read_file_callbacks(openAi,props);
     configure_move_item_callbacks(openAi,props);
