@@ -66,7 +66,7 @@ char *agent_deep_search(cJSON *args, void *pointer){
         printf("docment:%s -> %d\n",path, rate);
     }
     
-    return "not found";
+    return strdup("not found");
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
