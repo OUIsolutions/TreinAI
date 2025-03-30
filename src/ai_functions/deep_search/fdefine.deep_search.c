@@ -41,7 +41,8 @@ char *agent_deep_search(cJSON *args, void *pointer){
         OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 
         openai.openai_interface.add_system_prompt(openAi,"your function its to clasify how useful is the document for the question");
-        
+        openai.openai_interface.add_system_prompt(openAi,"you have to set the rate of the document");
+        openai.openai_interface.add_system_prompt(openAi,"make rate between 0 and 1000");
         char *question_str = malloc(strlen(question->valuestring) + 100);
         sprintf(question,"question: %s",question->valuestring);
         openai.openai_interface.add_system_prompt(openAi,question);
@@ -51,6 +52,19 @@ char *agent_deep_search(cJSON *args, void *pointer){
         openai.openai_interface.add_system_prompt(openAi,content);
 
         
+        OpenAiResponse *response =  OpenAiInterface_make_question_finish_reason_treated(openAi);
+        if(openai.openai_interface.error(response)){
+          printf("%sError: %s%s\n", RED, openai.openai_interface.get_error_message(response), RESET);
+          continue;
+        }
+        const char *first_answer = openai.response.get_content_str(response,0);
+        if(first_answer == NULL){
+          printf("%sError: %s%s\n", RED, "No answer found", RESET);
+        continue;;
+        }
+        printf("%s < %s: %s%s\n", BLUE,props->model, first_answer, RESET);
+
+        printf("setted the rate of the model to %d\n",rate);
     }
     
     return "not found";
