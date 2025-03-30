@@ -57,7 +57,7 @@ char *agent_deep_search(cJSON *args, void *pointer){
 
                 OpenAiResponse *response =  OpenAiInterface_make_question_finish_reason_treated(openAi);
                 if(openai.openai_interface.error(response)){
-                printf("%sError: %s%s\n", RED, openai.openai_interface.get_error_message(response), RESET);
+                    printf("%sError aqui: %s%s\n", RED, openai.openai_interface.get_error_message(response), RESET);
                     return strdup("error");
                 }
                 openai.openai_interface.free(openAi);
@@ -69,17 +69,23 @@ char *agent_deep_search(cJSON *args, void *pointer){
                     break;
                 }
         }
-        if(rate > 0){
+        if(rate > 800){
             cJSON_AddItemToArray(aproved,cJSON_CreateString(path));
         }
         printf("docment:%s -> %d\n",path, rate);
     }
     
-    return cJSON_Print(aproved);
+    char *list  =  cJSON_Print(aproved);
+    char *message = malloc(strlen(list) + 100);
+    sprintf(message,"aproved documents: %s",list);
+    printf("%s%s%s\n",GREEN,message,RESET);
+    cJSON_Delete(aproved);
+
+    return message;
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_deep_search,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the answer", true);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_deep_search,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the documents that has the response", true);
     OpenAiInterface_add_parameters_in_callback(callback, "question", "The question you want to ask", "string", false);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }
