@@ -40,6 +40,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_save_url_to_file(openAi,props->model);
     configure_get_url(openAi,props->model);
     configure_terminate_callbacks(openAi,props->model);
+    configure_search_how_to(openAi,props->model);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
     cJSON_Delete(rules);
     return openAi;
