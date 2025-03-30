@@ -6,13 +6,18 @@
 //silver_chain_scope_end
 
 
-char *agent_set_rate(cJSON *args, void *pointer){
-    cJSON *rate = cJSON_GetObjectItem(args, "rate");
-    if(!cJSON_IsNumber(rate)){
+char *agent_set_status(cJSON *args, void *pointer){
+    cJSON *status = cJSON_GetObjectItem(args, "status");
+    if (!cJSON_IsString(status)) {
         return NULL;
     }
-    int *rate_pointer = (int*)pointer;
-    *rate_pointer = rate->valueint;
+    bool *status_pointer = (bool*)pointer;
+    if(strcmp(status->valuestring, "usefull") == 0){
+        *status_pointer = true;
+    }else{
+        *status_pointer = false;
+    }
+    
     return "rate setted";
 }
 char *agent_deep_search(cJSON *args, void *pointer) {
@@ -73,106 +78,47 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         }
         
         // Classificar o documento
-        int rate = 0;
-        int max_attempts = 3;  // Reduzido para 3 tentativas em vez de 10
-        bool classification_success = false;
+        bool aproved = false;
+          
+        OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
+        openai.openai_interface.set_cache(openAi, ".cache_dir", true);
         
-        for (int attempt = 0; attempt < max_attempts && !classification_success; attempt++) {
-            OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
-            openai.openai_interface.set_cache(openAi, ".cache_dir", true);
-            
-            // Configurar callback
-            OpenAiCallback *callback = new_OpenAiCallback(agent_set_rate, &rate, "set_level_of_helpfulness", 
-                                                          "Set how helpful this content is for answering the question", false);
-            OpenAiInterface_add_parameters_in_callback(callback, "rate", "The rate you want to set", "number", true);
-            OpenAiInterface_add_callback_function_by_tools(openAi, callback);
+        // Configurar callback
+        OpenAiCallback *callback = new_OpenAiCallback(agent_set_status, &aproved, "set_status", 
+                                                        "determine if a content its usefull or crap", false);
+        OpenAiInterface_add_parameters_in_callback(callback, "status", "set usefull if the element its usefull to solve the question or crap if its usless", "string", true);
+        OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 
-            // Configurar prompts
-            openai.openai_interface.add_system_prompt(openAi, "Your task is to classify how useful this content is for answering the given question.");
-            openai.openai_interface.add_system_prompt(openAi, "YOU MUST CALL THE FUNCTION set_level_of_helpfulness WITH A RATING FROM 1 TO 10000.");
-            openai.openai_interface.add_system_prompt(openAi, "Rate 1-999: Not helpful, 1000-4999: Somewhat helpful, 5000-10000: Very helpful");
-            
-            char question_str[strlen(question->valuestring) + 100];
-            sprintf(question_str, "Question: %s", question->valuestring);
-            openai.openai_interface.add_system_prompt(openAi, question_str);
-            
-            // Limitar tamanho do conteúdo enviado (somente primeiros 8000 caracteres)
-            size_t content_to_send = content_length > 8000 ? 8000 : content_length;
-            char *truncated_content = malloc(content_to_send + 100);
-            if (!truncated_content) {
-                openai.openai_interface.free(openAi);
-                continue;
-            }
-            strncpy(truncated_content, content, content_to_send);
-            truncated_content[content_to_send] = '\0';
-            
-            char content_prompt[strlen(truncated_content) + 100];
-            sprintf(content_prompt, "Content: %s", truncated_content);
-            openai.openai_interface.add_system_prompt(openAi, content_prompt);
-            free(truncated_content);
-            
-            // Fazer a classificação
-            OpenAiResponse *response = OpenAiInterface_make_question_finish_reason_treated(openAi);
-            if (!openai.openai_interface.error(response)) {
-                if (rate > 0) {
-                    classification_success = true;
-                }
-            } else {
-                printf("%sError: %s%s\n", RED, openai.openai_interface.get_error_message(response), RESET);
-            }
-            
-            openai.openai_interface.free(openAi);
+        // Configurar prompts
+        openai.openai_interface.add_system_prompt(openAi, "Your task is to determine if the document is useful to answer the question.");
+        openai.openai_interface.add_system_prompt(openAi, "YOU MUST CALL THE FUNCTION set_status WITH THE STATUS OF THE DOCUMENT");
+        
+        char *question_str = malloc(strlen(question->valuestring) + 100);
+        sprintf(question_str, "Question: %s", question->valuestring);
+        openai.openai_interface.add_system_prompt(openAi, question_str);
+      
+        char *content_prompt = malloc(strlen(content) + 100);
+        sprintf(content_prompt, "Content: %s",content);
+        openai.openai_interface.add_system_prompt(openAi, content_prompt);
+    
+
+        // Fazer a classificação
+        OpenAiResponse *response = OpenAiInterface_make_question_finish_reason_treated(openAi);
+        openai.openai_interface.free(openAi);
+        if(openai.response.error(response)){
+            printf("%sError: %s%s\n", RED, openai.response.get_error_message(response), RESET);
+            continue;
+        }
+
+        if(aproved){
+            printf("%sDocument %s is approved%s\n", GREEN, path, RESET);
+           cJSON_AddItemToArray(approved, cJSON_CreateString(path));
         }
         
-        // Mostrar resultado da classificação
-        printf("Document: %s -> Rate: %d\n", path, rate);
-        
-        // Armazenar documentos relevantes
-        if (rate >= 1000) {  // Guardar documentos com alguma relevância, não apenas os muito relevantes
-            rated_docs[valid_docs_count].path = strdup(path);
-            rated_docs[valid_docs_count].rate = rate;
-            valid_docs_count++;
-            
-            if (rate >= 5000) {
-                printf("%sHighly relevant: %s%s\n", GREEN, path, RESET);
-            }
-        }
-        
-        // Liberar memória
-        free(path);
-        free(content);
     }
-    
-    // Ordenar documentos por relevância (ordem decrescente)
-    for (int i = 0; i < valid_docs_count - 1; i++) {
-        for (int j = 0; j < valid_docs_count - i - 1; j++) {
-            if (rated_docs[j].rate < rated_docs[j + 1].rate) {
-                // Trocar posições
-                RatedDocument temp = rated_docs[j];
-                rated_docs[j] = rated_docs[j + 1];
-                rated_docs[j + 1] = temp;
-            }
-        }
-    }
-    
-    // Adicionar documentos ordenados ao array JSON
-    for (int i = 0; i < valid_docs_count; i++) {
-        if (rated_docs[i].rate >= 5000) {  // Adicionar apenas os realmente relevantes
-            cJSON_AddItemToArray(approved, cJSON_CreateString(rated_docs[i].path));
-        }
-        free(rated_docs[i].path);  // Liberar memória dos caminhos
-    }
-    
-    // Liberar memória
-    free(rated_docs);
-    free(current_dir);
-    // Suponho que doc_dir seja liberado em outro lugar ou use uma função específica
-    
-    // Retornar o resultado
-    char *result = cJSON_Print(approved);
-    cJSON_Delete(approved);
-    
-    return result;
+   
+   
+    return cJSON_Print(approved);
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
