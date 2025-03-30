@@ -1,12 +1,10 @@
-# RagCraft
-A CLI Template/Framework for creating AI Command line Agents in C/C++
-
-![Tumb Image](/tumb/tumb.gif)
+# TremAi
+A CLI tool to help you to Code and execute command
 
 ## About the Project
-This README was written by Grok with RagCraft, an AI model developed by xAI. RagCraft is a powerful tool for creating RAG (Retrieval-Augmented Generation) based applications in C. It provides a robust framework for managing language models, configuring APIs, and building CLI applications with ease.
 
-### Key Features
+
+
 - **Model Configuration**: Easily configure and manage different language models.
 - **API Integration**: Seamless integration with various APIs for enhanced functionality.
 - **CLI Interface**: Build command-line interfaces with straightforward commands.
@@ -14,16 +12,16 @@ This README was written by Grok with RagCraft, an AI model developed by xAI. Rag
 - **Encryption**: Secure storage of configuration files with encryption.
 
 ## Test Release
-Ragcraft itself release, can help you to understand the project, if you want access [cli_usage.md](/docs/cli_usage.md) and learn how to use the template, by using the CLI itself that it generates
+TremAi itself release, can help you to understand the project, if you want access [cli_usage.md](/docs/cli_usage.md) and learn how to use the template, by using the CLI itself that it generates
 
 | File | Description |
 | --- | --- |
-|[RagCraft.c](https://github.com/OUIsolutions/RagCraft/releases/download/0.0.4/RagCraft.c)| final Amalgamation of the project |
-|[RagCraft.deb](https://github.com/OUIsolutions/RagCraft/releases/download/0.0.4/RagCraft.deb)| Debian Package |
-|[RagCraft.rpm](https://github.com/OUIsolutions/RagCraft/releases/download/0.0.4/RagCraft.rpm)| RPM Package |
-|[RagCraft.out](https://github.com/OUIsolutions/RagCraft/releases/download/0.0.4/RagCraft.out)| Linux Executable file |
-|[RagCraft64.exe](https://github.com/OUIsolutions/RagCraft/releases/download/0.0.4/RagCraft64.exe)| Windows 64 bit Executable file |
-|[RagCrafti32.exe](https://github.com/OUIsolutions/RagCraft/releases/download/0.0.4/RagCrafti32.exe)| Windows 32 bit Executable file |
+|[TremAi.c](https://github.com/OUIsolutions/TremAi/releases/download/0.0.1/TremAi.c)| final Amalgamation of the project |
+|[TremAi.deb](https://github.com/OUIsolutions/TremAi/releases/download/0.0.1/TremAi.deb)| Debian Package |
+|[TremAi.rpm](https://github.com/OUIsolutions/TremAi/releases/download/0.0.1/TremAi.rpm)| RPM Package |
+|[TremAi.out](https://github.com/OUIsolutions/TremAi/releases/download/0.0.1/TremAi.out)| Linux Executable file |
+|[TremAi64.exe](https://github.com/OUIsolutions/TremAi/releases/download/0.0.1/TremAi64.exe)| Windows 64 bit Executable file |
+|[TremAii32.exe](https://github.com/OUIsolutions/TremAi/releases/download/0.0.1/TremAii32.exe)| Windows 32 bit Executable file |
 
 ## Docs 
 | File | Description |

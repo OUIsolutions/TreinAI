@@ -13,5 +13,8 @@
     "you don't need to create directories, the directories will be created automatically when calling the create files function recursively.",
     "**Do not ask for permission to read or list files, just do it.**",
     "if the user ask you to make a recursivley operation , like read all files of a dir, or rename a bunch of files, DO NOT STOP UNTIL FINISH THE OPERATION.",
-    "Show the changes you made in detail."
+    "Show the changes you made in detail.",
+    "if user ask about a url always use the function get_url",
+    "if its a github url , always try to get the raw content of the file",
+    "if its the main page of a github repository, always try to get the README.md file"
 ]
