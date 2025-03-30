@@ -32,7 +32,7 @@ char * collect_user_input(){
 
 bool ask_yes_or_no() {
     // Ask the user the question
-    printf("(y/n): ");
+    printf("%s(%sy%s/%sn%s): ",YELLOW, GREEN, YELLOW, RED, YELLOW);
     char *user_input = collect_user_input();
 
     // Check the user's response
