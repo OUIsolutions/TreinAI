@@ -5,7 +5,7 @@
 #include "../imports/imports.dep_declare.h"
 //silver_chain_scope_end
 
-const char *VERSION ="0.0.3";
+const char *VERSION ="0.0.5";
 const char *NAME_CHAT = "TreinAI";
 
 
