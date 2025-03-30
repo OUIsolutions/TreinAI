@@ -12,6 +12,7 @@
 #define RED "\033[0;31m"
 #define RESET  "\033[0m"
 #define PURPLE "\033[0;35m"
+#define ORANGE "\033[0;33m"
 #else
 #define GREEN  ""
 #define BLUE  ""
@@ -19,4 +20,5 @@
 #define RED ""
 #define RESET  ""
 #define PURPLE ""
+#define ORANGE ""
 #endif

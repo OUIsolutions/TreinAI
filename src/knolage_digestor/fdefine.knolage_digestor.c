@@ -74,8 +74,18 @@ void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
    char *formmated_current_item  = malloc(strlen(current_item)+100);
    snprintf(formmated_current_item,strlen(current_item)+100,"current_item: %s\n",current_item);
    openai.openai_interface.add_temp_system_prompt(self->openAi,formmated_current_item);
-    free(formmated_current_item);
-    OpenAiInterface_make_question_finish_reason_treated(self->openAi);
+   free(formmated_current_item);
+   OpenAiResponse *reponnse = OpenAiInterface_make_question_finish_reason_treated(self->openAi);
+  if(openai.openai_interface.error(reponnse)){
+    printf("%s\tError: %s%s\n", RED, openai.openai_interface.get_error_message(reponnse), RESET);
+  }
+  const char *first_answer = openai.response.get_content_str(reponnse,0);
+  if(first_answer == NULL){
+    printf("%s\tError: %s%s\n", RED, "No answer found", RESET);
+  }
+  
+  printf("%s\t < %s%s\n", ORANGE, first_answer, RESET);
+
 }
 
 void KnolageDigestor_digest_file(KnolageDigestor *self,const char *file_path,const char *current_item){
