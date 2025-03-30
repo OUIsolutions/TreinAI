@@ -14,7 +14,7 @@ char *agent_search_how_to(cJSON *args, void *pointer){
         return NULL;
     }
 
-
+    /*
     cJSON *urls = cJSON_GetObjectItem(args, "urls");
     if(!cJSON_IsArray(urls)){
         return NULL;
@@ -25,15 +25,15 @@ char *agent_search_how_to(cJSON *args, void *pointer){
             return NULL;
         }
     }
+    */
     printf("question %s\n", question->valuestring);
-    printf("urls %s\n", cJSON_Print(urls));
+    //printf("urls %s\n", cJSON_Print(urls));
 
     return (char*)"not found";
 }
 
 void configure_search_how_to(OpenAiInterface *openAi,const char *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_search_how_to,(void*)model, "search_how_to", "search how to make something", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_search_how_to,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the answer", false);
     OpenAiInterface_add_parameters_in_callback(callback, "question", "The question you want to ask", "string", false);
-    OpenAiInterface_add_parameters_in_callback(callback, "urls", "The urls you want to search", "array", false);
-    
+    OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }

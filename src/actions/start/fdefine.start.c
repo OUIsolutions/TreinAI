@@ -30,6 +30,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     snprintf(name_message,sizeof(name_message)-1,"your model base  its %s",props->model);
 
     openai.openai_interface.add_system_prompt(openAi,name_message);
+    configure_search_how_to(openAi,props->model);
     configure_list_recursively_callbacks(openAi,props->model);
     configure_read_file_callbacks(openAi,props->model);
     configure_move_item_callbacks(openAi,props->model);
@@ -40,7 +41,6 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_save_url_to_file(openAi,props->model);
     configure_get_url(openAi,props->model);
     configure_terminate_callbacks(openAi,props->model);
-    configure_search_how_to(openAi,props->model);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
     cJSON_Delete(rules);
     return openAi;
