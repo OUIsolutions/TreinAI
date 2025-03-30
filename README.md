@@ -3,7 +3,8 @@ A CLI tool to help you to Code and execute command
 
 ## About the Project
 
-**TreinAI** is an assistance agent for project developers, with full read and write permissions. It can help with simple questions, project development, and even execute system commands. TreinAI is located at [https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI).
+**TreinAI** is an assistance agent for project developers, with full read and write permissions. It can help with simple questions, project development, and even execute system commands. 
+## Features
 
 - **Model Configuration**: Easily configure and manage different language models.
 - **API Integration**: Seamless integration with various APIs for enhanced functionality.
