@@ -10,14 +10,14 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
 
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
     
-    Asset * main_system_rules = get_asset("system_instructions.json");
+    Asset * main_system_rules = get_asset("system_instructions/agent_main.json");
     if(!main_system_rules){
-      printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
+      printf("%sError: %s%s\n", RED, "No system_instructions/agent_main.json instructions found", RESET);
       return NULL;
     }
     cJSON *rules = cJSON_Parse((char*)main_system_rules->data);
     if(!rules){
-      printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
+      printf("%sError: %s%s\n", RED, "System instructions not a valid json", RESET);
       return NULL;
     }
     int size = cJSON_GetArraySize(rules);
