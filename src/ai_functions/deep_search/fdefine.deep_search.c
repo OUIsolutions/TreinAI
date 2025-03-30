@@ -8,7 +8,7 @@
 
 
 
-char *agent_search_how_to(cJSON *args, void *pointer){
+char *agent_deep_search(cJSON *args, void *pointer){
     cJSON *question = cJSON_GetObjectItem(args, "question");
     if(!cJSON_IsString(question)){
         return NULL;
@@ -32,7 +32,7 @@ char *agent_search_how_to(cJSON *args, void *pointer){
     return (char*)"not found";
 }
 
-void configure_search_how_to(OpenAiInterface *openAi,const char *model){
+void configure_deep_search(OpenAiInterface *openAi,const char *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_search_how_to,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the answer", false);
     OpenAiInterface_add_parameters_in_callback(callback, "question", "The question you want to ask", "string", false);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
