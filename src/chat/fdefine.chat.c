@@ -30,3 +30,17 @@ char * collect_user_input(){
   return buffer;
 }
 
+bool ask_yes_or_no(const char *question) {
+    // Ask the user the question
+    printf("%s (y/n): ", question);
+    char *user_input = collect_user_input();
+
+    // Check the user's response
+    bool result = false;
+    if (strcasecmp(user_input, "y") == 0) {
+        result = true;
+    }
+
+    free(user_input); // Clean up
+    return result;
+}
