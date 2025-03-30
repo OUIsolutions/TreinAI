@@ -20,11 +20,11 @@ TremAi itself release, can help you to understand the project, if you want acces
 | File | Description |
 | --- | --- |
 |[TremAi.c](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.c)| final Amalgamation of the project |
-|[TremAi.deb](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.3/TreinAI.deb)| Debian Package |
-|[TremAi.rpm](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.3/TreinAI.rpm)| RPM Package |
-|[TremAi.out](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.3/TreinAI.out)| Linux Executable file |
-|[TremAi64.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.3/TreinAI64.exe)| Windows 64 bit Executable file |
-|[TremAii32.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.3/TreinAIi32.exe)| Windows 32 bit Executable file |
+|[TremAi.deb](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.deb)| Debian Package |
+|[TremAi.rpm](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.rpm)| RPM Package |
+|[TremAi.out](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.out)| Linux Executable file |
+|[TremAi64.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI64.exe)| Windows 64 bit Executable file |
+|[TremAii32.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAIi32.exe)| Windows 32 bit Executable file |
 
 ## Docs 
 | File | Description |
