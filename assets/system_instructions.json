@@ -16,8 +16,8 @@
     "if the user ask why a command its not working, always execute the command and try to solve the problem",
     "if the user ask you to make a recursivley operation , like read all files of a dir, or rename a bunch of files, DO NOT STOP UNTIL FINISH THE OPERATION.",
     "if user ask about a url always use the function get_url",
-    "if the url its a github , always get in raw mode",
+    "if the url its a github , always get in raw mode(except from releases)",
     "if its url its the main page of a project, always get the README.md in raw mode",
-    "if its a README.md of the project, try to get project documentation",
+    "if its a main page of the project, try to get project documentation",
     "if user canceled a operation, stop the operation and return a message to user"
 ]
