@@ -10,8 +10,8 @@ int main(int argc, char  *argv[]){
     start_namespace();
     args_obj  = args.newCArgvParse(argc, argv);
     
-    unsigned char *encryption_key = (unsigned char*)malloc(TreinAikey_size+1);
-    TreinAi_get_key(encryption_key);
+    unsigned char *encryption_key = (unsigned char*)malloc(TreinAIkey_size+1);
+    TreinAI_get_key(encryption_key);
     encryption = dtw.encryption.newAES_Custom_CBC_v1_interface((char*)encryption_key);
     if(encryption == NULL){
       printf("%sError: %s%s\n", RED, "Invalid encryption key", RESET);
