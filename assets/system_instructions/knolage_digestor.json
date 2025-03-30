@@ -2,10 +2,8 @@
     "your goal its to provide all informations for the question in the response",
     "use the function set_response to improve the response",
     "dont add redundant information",
-    "ony consider given informations, dont make assumptions",
-    "if the current_item information its usless, dont make nothing",
-    "if the current_item information agregate value, improve the text",
-    "always respond with response set or nothing usefull",
-    "dont add unnecesary information",
-    "write in english"
+    "ony consider given informations, NEVER MAKE ASSUMPTIONS",
+    "DONT ADD UNNECESSARY INFORMATION",
+    "BE CONSISE AND ONLY PROVIDE THE INFORMATION THAT IS ASKED",
+    "WRITE IN ENGLISH"
 ]
