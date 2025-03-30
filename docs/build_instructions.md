@@ -68,7 +68,7 @@ mkdir libs
 gcc -c dependencies/BearHttpsClient.c -o libs/BearHttpsClient.o  -DBEARSSL_HTTPS_MOCK_CJSON_DEFINE
 gcc -c  dependencies/CArgvParse.c -o libs/CArgvParse.o
 gcc -c dependencies/doTheWorld.c -o libs/doTheWorld.o
-gcc src/main.c -o TremAi libs/BearHttpsClient.o libs/doTheWorld.o libs/CArgvParse.o
+gcc src/main.c -o TreinAI libs/BearHttpsClient.o libs/doTheWorld.o libs/CArgvParse.o
 ```
 
 
