@@ -72,7 +72,7 @@ char *agent_save_url_to_file(cJSON *args, void *pointer){
 }
 
 void configure_save_url_to_file(OpenAiInterface *openAi,const char *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_get_url,(void*)model, "save_url_to_file", "save the content of a url in a file", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_save_url_to_file,(void*)model, "save_url_to_file", "save the content of a url in a file", false);
     OpenAiInterface_add_parameters_in_callback(callback, "url", "Pass the url you want to save.", "string", false);
     OpenAiInterface_add_parameters_in_callback(callback, "output", "The file you want to save", "string", false);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
