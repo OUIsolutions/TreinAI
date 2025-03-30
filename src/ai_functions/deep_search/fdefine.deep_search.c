@@ -62,9 +62,9 @@ char *agent_deep_search(cJSON *args, void *pointer){
           printf("%sError: %s%s\n", RED, "No answer found", RESET);
         continue;;
         }
-        printf("%s < %s: %s%s\n", BLUE,props->model, first_answer, RESET);
+        //printf("%s < %s: %s%s\n", BLUE,props->model, first_answer, RESET);
 
-        printf("setted the rate of the model to %d\n",rate);
+        printf("docment:%s -> %d\n",path, rate);
     }
     
     return "not found";
