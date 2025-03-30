@@ -14,21 +14,21 @@ char *agent_deep_search(cJSON *args, void *pointer){
         return NULL;
     }
 
-    /*
-    cJSON *urls = cJSON_GetObjectItem(args, "urls");
-    if(!cJSON_IsArray(urls)){
-        return NULL;
-    }
-    for(int i = 0; i < cJSON_GetArraySize(urls); i++){
-        cJSON *url = cJSON_GetArrayItem(urls, i);
-        if(!cJSON_IsString(url)){
-            return NULL;
-        }
-    }
-    */
+    
     printf("question %s\n", question->valuestring);
-    //printf("urls %s\n", cJSON_Print(urls));
-
+    
+    KnolageDigestor *knolage_digestor = newKnolageDigestor((ModelProps*)pointer, question->valuestring);
+    if(!knolage_digestor){
+        return (char*)"error";
+    }
+    DtwStringArray *doc_dir = dtw.list_files_recursively("docs",DTW_CONCAT_PATH);
+    for(int i = 0; i < doc_dir->size; i++){
+        char *path = doc_dir->strings[i];
+        char *content = dtw.load_string_file_content(path);
+        KnolageDigestor_digest_file(knolage_digestor,path, content);
+        free(content);
+    }
+    
     return (char*)"not found";
 }
 

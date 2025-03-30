@@ -59,7 +59,7 @@ char *KnolageDigestor_agent_set_response(cJSON *args, void *pointer){
     if(self->actual_response){
         free(self->actual_response);
     }
-    self->actual_response = response->valuestring;
+    self->actual_response = strdup(response->valuestring);
     self->actual_response_size = strlen(self->actual_response);
     return (char*)"response set";
 }
