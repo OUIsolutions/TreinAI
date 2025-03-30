@@ -7,4 +7,4 @@
 
 char *agent_move_item(cJSON *args, void *pointer);
 
-void configure_move_item_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_move_item_callbacks(OpenAiInterface *openAi,ModelProps *model);

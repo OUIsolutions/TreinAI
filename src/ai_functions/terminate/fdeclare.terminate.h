@@ -7,4 +7,4 @@
 
 char *agent_terminate(cJSON *args, void *pointer);
 
-void configure_terminate_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_terminate_callbacks(OpenAiInterface *openAi,ModelProps *model);

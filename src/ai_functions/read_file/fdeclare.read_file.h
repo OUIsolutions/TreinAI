@@ -7,4 +7,4 @@
 
 char *agent_read_file(cJSON *args, void *pointer);
 
-void configure_read_file_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_read_file_callbacks(OpenAiInterface *openAi,ModelProps *model);

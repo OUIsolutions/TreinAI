@@ -5,13 +5,12 @@
 #include "../../imports/imports.globals.h"
 //silver_chain_scope_end
 char *agent_execute_command(cJSON *args, void *pointer){
-    
-    const char *model = (const char*)pointer;
+ModelProps *props = (ModelProps*)pointer;    
     cJSON *command = cJSON_GetObjectItem(args, "command");
     if(!cJSON_IsString(command)){
         return NULL;
     }
-    printf("%s %s EXECUTE COMMAND: '%s'%s",YELLOW,model, command->valuestring, PURPLE);
+    printf("%s %s EXECUTE COMMAND: '%s'%s",YELLOW,props->model, command->valuestring, PURPLE);
     bool aply = ask_yes_or_no();
     if(!aply){
         return strdup("User canceled.");
@@ -29,7 +28,7 @@ char *agent_execute_command(cJSON *args, void *pointer){
     char *result_str = (char*)malloc(strlen(output) + 100);
     sprintf(result_str, "status: %d\nOutput:\n%s", result, output);
     free(output);
-    printf("%s %s EXECUTED COMMAND: %s%s\n", YELLOW, model, command->valuestring, RESET);
+    printf("%s %s EXECUTED COMMAND: %s%s\n", YELLOW, props->model, command->valuestring, RESET);
     return result_str;
 }
 

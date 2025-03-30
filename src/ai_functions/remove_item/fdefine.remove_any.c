@@ -22,7 +22,7 @@ char *agent_remove_file(cJSON *args, void *pointer){
     return (char*)"file or directory removed";
 }
 
-void configure_remove_file_callbacks(OpenAiInterface *openAi,const char *model){
+void configure_remove_file_callbacks(OpenAiInterface *openAi,ModelProps *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_remove_file, (void*)model, "remove", "remove a file or directory", false);
     OpenAiInterface_add_parameters_in_callback(callback, "path", "Pass the path you want to remove.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);

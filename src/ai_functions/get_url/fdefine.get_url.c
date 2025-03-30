@@ -6,12 +6,12 @@
 //silver_chain_scope_end
 
 char *agent_get_url(cJSON *args, void *pointer){
-    const char *model = (const char*)pointer;
+    ModelProps *props = (ModelProps*)pointer;
     cJSON *url = cJSON_GetObjectItem(args, "url");
     if(!cJSON_IsString(url)){
         return NULL;
     }
-    printf("%s %s GETTING URL: %s\n",YELLOW,model,url->valuestring, RESET);
+    printf("%s %s GETTING URL: %s\n",YELLOW,props->model,url->valuestring, RESET);
     BearHttpsRequest *request = bear.request.newBearHttpsRequest(url->valuestring);
     BearHttpsResponse *response = bear.request.fetch(request);
     if(bear.response.error(response)){
@@ -33,7 +33,7 @@ char *agent_get_url(cJSON *args, void *pointer){
     return bdy_copy;
 }
 
-void configure_get_url(OpenAiInterface *openAi,const char *model){
+void configure_get_url(OpenAiInterface *openAi,ModelProps *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_get_url,(void*)model, "get_url", "fetch a url", false);
     OpenAiInterface_add_parameters_in_callback(callback, "url", "Pass the url you want to fetch.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);

@@ -6,7 +6,7 @@
 //silver_chain_scope_end
 
 char *agent_save_url_to_file(cJSON *args, void *pointer){
-    const char *model = (const char*)pointer;
+ModelProps *props = (ModelProps*)pointer;
     cJSON *url = cJSON_GetObjectItem(args, "url");
     if(!cJSON_IsString(url)){
         return NULL;
@@ -17,7 +17,7 @@ char *agent_save_url_to_file(cJSON *args, void *pointer){
     }
 
       
-    printf("%s %s DOWNLOAD THE URL '%s' IN: '%s'%s",YELLOW,model,url->valuestring, output->valuestring, PURPLE);
+    printf("%s %s DOWNLOAD THE URL '%s' IN: '%s'%s",YELLOW,props->model,url->valuestring, output->valuestring, PURPLE);
     bool aply = ask_yes_or_no();
     if(!aply){
         return (char*)"user canceled";
@@ -50,7 +50,7 @@ char *agent_save_url_to_file(cJSON *args, void *pointer){
     return (char*)"file wrotted";
 }
 
-void configure_save_url_to_file(OpenAiInterface *openAi,const char *model){
+void configure_save_url_to_file(OpenAiInterface *openAi,ModelProps *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_save_url_to_file,(void*)model, "save_url_to_file", "save the content of a url in a file", false);
     OpenAiInterface_add_parameters_in_callback(callback, "url", "Pass the url you want to save.", "string", false);
     OpenAiInterface_add_parameters_in_callback(callback, "output", "The file you want to save", "string", false);

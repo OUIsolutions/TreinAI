@@ -6,13 +6,13 @@
 //silver_chain_scope_end
 
 char *agent_clear(cJSON *args, void *pointer){
-    const char *model = (const char*)pointer;
+    ModelProps *props = (ModelProps*)pointer;
     #ifdef _WIN32
         system("cls");
     #else
         system("clear");
     #endif
-    printf("%s %s CLEARED SCREEN\n",YELLOW,model, RESET);
+    printf("%s %s CLEARED SCREEN\n",YELLOW,props->model, RESET);
     return (char*)"cleared";
 }
 void configure_clear_callbacks(OpenAiInterface *openAi,const char *model){

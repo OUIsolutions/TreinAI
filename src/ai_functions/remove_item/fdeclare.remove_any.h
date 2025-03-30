@@ -7,4 +7,4 @@
 
 char *agent_remove_file(cJSON *args, void *pointer);
 
-void configure_remove_file_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_remove_file_callbacks(OpenAiInterface *openAi,ModelProps *model);

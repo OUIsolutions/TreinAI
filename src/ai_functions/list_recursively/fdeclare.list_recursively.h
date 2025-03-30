@@ -7,4 +7,4 @@
 
 char *agent_list_recursively(cJSON *args, void *pointer);
 
-void configure_list_recursively_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_list_recursively_callbacks(OpenAiInterface *openAi,ModelProps *model);

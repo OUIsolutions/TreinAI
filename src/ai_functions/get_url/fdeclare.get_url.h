@@ -8,4 +8,4 @@
 
 char *agent_get_url(cJSON *args, void *pointer);
 
-void configure_get_url(OpenAiInterface *openAi,const char *model);
+void configure_get_url(OpenAiInterface *openAi,ModelProps *model);
