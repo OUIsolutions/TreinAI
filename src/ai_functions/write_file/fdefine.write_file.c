@@ -6,7 +6,8 @@
 //silver_chain_scope_end
 
 char *agent_write_file(cJSON *args, void *pointer){
-    const char *model = (const char*)pointer;
+    ModelProps *props = (ModelProps*)pointer;
+
     cJSON *path = cJSON_GetObjectItem(args, "path");
     cJSON *content = cJSON_GetObjectItem(args, "content");
     if(!cJSON_IsString(path) || !cJSON_IsString(content)){
@@ -31,7 +32,7 @@ char *agent_write_file(cJSON *args, void *pointer){
     dtw.write_string_file_content(path->valuestring, content->valuestring);
 
    
-    printf("%s %s APLY THE MODIFCATIONS IN: '%s'%s",YELLOW,model, path->valuestring, PURPLE);
+    printf("%s %s APLY THE MODIFCATIONS IN: '%s'%s",YELLOW,props->model, path->valuestring, PURPLE);
     bool aply = ask_yes_or_no();
     if(!aply){
         //means that file already exists

@@ -13,23 +13,22 @@ char *agent_deep_search(cJSON *args, void *pointer){
     if(!cJSON_IsString(question)){
         return NULL;
     }
+    ModelProps *props = (ModelProps*)pointer;
 
     
     printf("%sSTARTING DEEP SEARCH FOR QUESTION: %s\n%s",YELLOW, question->valuestring, RESET);
-    
-    KnolageDigestor *knolage_digestor = newKnolageDigestor((ModelProps*)pointer, question->valuestring);
-    if(!knolage_digestor){
-        return (char*)"error";
-    }
+    cJSON *aproved  = cJSON_CreateArray();
+
     DtwStringArray *doc_dir = dtw.list_files_recursively("docs",DTW_CONCAT_PATH);
     for(int i = 0; i < doc_dir->size; i++){
         char *path = doc_dir->strings[i];
         char *content = dtw.load_string_file_content(path);
-        KnolageDigestor_digest_file(knolage_digestor,path, content);
+
+        OpenAiInterface *openAi =openai.openai_interface.newOpenAiInterface()
+
         free(content);
     }
-    printf("%s FINAL DIGEST %s %s",YELLOW, knolage_digestor->actual_response, RESET);
-    KnolageDigestor_free(knolage_digestor);
+    
     return knolage_digestor->actual_response;
 }
 

@@ -6,8 +6,8 @@
 //silver_chain_scope_end
 
 char *agent_terminate(cJSON *args, void *pointer){
-    const char *model = (const char*)pointer;
-    printf("%s %s TERMINATED CONVERSATION\n",YELLOW,model, RESET);
+ModelProps *props = (ModelProps*)pointer;
+    printf("%s %s TERMINATED CONVERSATION\n",YELLOW,props->model, RESET);
     exit(0);
     return NULL;
 }

@@ -1,9 +1,0 @@
-[
-    "your goal its to provide all informations for the question in the response",
-    "use the function set_response to improve the response",
-    "dont add redundant information",
-    "ony consider given informations, NEVER MAKE ASSUMPTIONS",
-    "DONT ADD UNNECESSARY INFORMATION",
-    "BE CONSISE AND ONLY PROVIDE THE INFORMATION THAT IS ASKED",
-    "WRITE IN ENGLISH"
-]
