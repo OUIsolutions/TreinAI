@@ -22,7 +22,7 @@ You must have podman or docker installed on your machine to build in these way, 
 
 if you want to make a full build to all platforms you can use the following command, it will create the following files:
 ```bash
- darwin run_blueprint build/ --mode folder amalgamation_build alpine_static_build windowsi32_build windows64_build rpm_static_build debian_static_build -encrypt_key "your_encryption_key"
+ darwin run_blueprint build/ --mode folder amalgamation_build alpine_static_build windowsi32_build windowsi64_build rpm_static_build debian_static_build -encrypt_key "your_encryption_key"
 ```
 
 Output files:
