@@ -1,56 +1,56 @@
 ## Cli Usage
 
 ### Configure a model
-For Configure a model, you just need to call **TremAi** passing **configure_model** as first argument:
+For Configure a model, you just need to call **TreinAi ** passing **configure_model** as first argument:
 
 ```bash
-TremAi configure_model --model grok-2-latest --url https://api.x.ai/v1/chat/completions   --key "your key"
+TreinAi  configure_model --model grok-2-latest --url https://api.x.ai/v1/chat/completions   --key "your key"
 ```
 
 ### Start the application
-For start the application, you just need to call **TremAi** passing **start** as first argument:
+For start the application, you just need to call **TreinAi ** passing **start** as first argument:
 
 ```bash
-TremAi start
+TreinAi  start
 ```
 ### Start the application with a model
-For start the application with a model, you just need to call **TremAi** passing **start** as first argument and the model as second argument:
+For start the application with a model, you just need to call **TreinAi ** passing **start** as first argument and the model as second argument:
 
 ```bash
-TremAi start --model grok-2-latest
+TreinAi  start --model grok-2-latest
 ```
 
 ### List Models 
-to list the models, you just need to call **TremAi** passing **list_models** as first argument:
+to list the models, you just need to call **TreinAi ** passing **list_models** as first argument:
 
 ```bash
-TremAi list_models
+TreinAi  list_models
 ```
 
 ### Remove Model
 
-For remove a model, you just need to call **TremAi** passing **remove_model** as first argument:
+For remove a model, you just need to call **TreinAi ** passing **remove_model** as first argument:
 
 ```bash
-TremAi remove_model --model grok-2-latest
+TreinAi  remove_model --model grok-2-latest
 ```
 
 ### Set model as Default 
-For set a model as default, you just need to call **TremAi** passing **set_model_as_default** as first argument:
+For set a model as default, you just need to call **TreinAi ** passing **set_model_as_default** as first argument:
 
 ```bash
-TremAi set_model_as_default --model grok-2-latest
+TreinAi  set_model_as_default --model grok-2-latest
 ```
 ### Resset Configuration
-For resset the configuration, you just need to call **TremAi** passing **resset** as first argument:
+For resset the configuration, you just need to call **TreinAi ** passing **resset** as first argument:
 
 ```bash
-TremAi resset
+TreinAi  resset
 ```
 
 ### Get Help
-For get help, you just need to call **TremAi** passing **help** as first argument:
+For get help, you just need to call **TreinAi ** passing **help** as first argument:
 
 ```bash
-TremAi help
+TreinAi  help
 ```
