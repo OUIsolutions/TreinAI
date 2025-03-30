@@ -32,15 +32,30 @@ char * collect_user_input(){
 
 bool ask_yes_or_no() {
     // Ask the user the question
+    
     printf("%s(%sy%s/%sn%s): ",YELLOW, GREEN, YELLOW, RED, YELLOW);
-    char *user_input = collect_user_input();
-
-    // Check the user's response
-    bool result = false;
-    if (strcasecmp(user_input, "y") == 0) {
-        result = true;
+    while(true){
+      char *user_input = collect_user_input();
+      // Check the user's response
+      if (strcasecmp(user_input, "y") == 0) {
+          free(user_input); // Clean up
+        return true;     
+      }
+      if(strcasecmp(user_input, "yes") == 0){
+          free(user_input); // Clean up
+          return true;
+      }
+      if(strcasecmp(user_input, "no") == 0){
+          free(user_input); // Clean up
+          return false;
+      }
+      if(strcasecmp(user_input, "n") == 0){
+          free(user_input); // Clean up
+          return false;
+      }
+      printf("%sPlease enter %syes%s or %sno%s: ",RED, YELLOW, RED, YELLOW, RESET);
+      free(user_input); // Clean up
+  
     }
 
-    free(user_input); // Clean up
-    return result;
 }
