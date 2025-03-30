@@ -11,12 +11,14 @@ char *agent_set_status(cJSON *args, void *pointer){
     if (!cJSON_IsString(status)) {
         return NULL;
     }
-    bool *status_pointer = (bool*)pointer;
+    int *status_pointer = (int*)pointer;
     if(strcmp(status->valuestring, "usefull") == 0){
         *status_pointer = true;
-    }else{
+    }
+    else if(strcmp(status->valuestring, "crap") == 0){
         *status_pointer = false;
     }
+  
     
     return "rate setted";
 }
@@ -78,44 +80,54 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         }
         
         // Classificar o documento
-        bool aproved = false;
-          
-        OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
-        openai.openai_interface.set_cache(openAi, ".cache_dir", true);
-        
-        // Configurar callback
-        OpenAiCallback *callback = new_OpenAiCallback(agent_set_status, &aproved, "set_status",  "determine if a content its usefull or crap", false);
-        OpenAiInterface_add_parameters_in_callback(callback, "status", "set usefull if the element its usefull to solve the question or crap if its usless", "string", true);
-        OpenAiInterface_add_callback_function_by_tools(openAi, callback);
+        int  status = -1;
+        int attempt = 10;
+        for(int  j=0;j < attempt;j++){
+            OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
+            openai.openai_interface.set_cache(openAi, ".cache_dir", true);
+            
+            // Configurar callback
+            OpenAiCallback *callback = new_OpenAiCallback(agent_set_status, &status, "set_status",  "determine if a content its usefull or crap", false);
+            OpenAiInterface_add_parameters_in_callback(callback, "status", "set usefull if the element its usefull to solve the question or crap if its usless", "string", true);
+            OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 
-        // Configurar prompts
-        openai.openai_interface.add_system_prompt(openAi, "Your task is to determine if the document is useful to answer the question.");
-        openai.openai_interface.add_system_prompt(openAi, "YOU MUST CALL THE FUNCTION set_status WITH THE STATUS OF THE DOCUMENT");
+            // Configurar prompts
+            openai.openai_interface.add_system_prompt(openAi, "Your task is to determine if the document is contains a example of one of the answers to the question");
+            openai.openai_interface.add_system_prompt(openAi, "YOU MUST CALL THE FUNCTION set_status WITH THE STATUS OF THE DOCUMENT");
+            openai.openai_interface.add_system_prompt(openAi, "if you find something useful call set_status with the status usefull");
+            
+            char *question_str = malloc(strlen(question->valuestring) + 100);
+            sprintf(question_str, "Question: %s\n\n\n", question->valuestring);
+            openai.openai_interface.add_system_prompt(openAi, question_str);
         
-        char *question_str = malloc(strlen(question->valuestring) + 100);
-        sprintf(question_str, "Question: %s", question->valuestring);
-        openai.openai_interface.add_system_prompt(openAi, question_str);
-      
 
-        char *content_prompt = malloc(strlen(content) + 100);
-        sprintf(content_prompt, "Content: %s",content);
-        openai.openai_interface.add_system_prompt(openAi, content_prompt);
-    
-        // Fazer a classificação
-        OpenAiResponse *response = OpenAiInterface_make_question_finish_reason_treated(openAi);
-        if(openai.response.error(response)){
-            printf("%sError: %s%s\n", RED, openai.response.get_error_message(response), RESET);
-            continue;
+            char *content_prompt = malloc(strlen(content) + 100);
+            sprintf(content_prompt, "Content: %s",content);
+            openai.openai_interface.add_system_prompt(openAi, content_prompt);
+        
+            // Fazer a classificação
+            OpenAiResponse *response = OpenAiInterface_make_question_finish_reason_treated(openAi);
+            if(openai.response.error(response)){
+                printf("%sError: %s%s\n", RED, openai.response.get_error_message(response), RESET);
+                continue;
+            }
+            if(status != -1){
+                if(j >0){
+                    printf("%s Document took %d attempts to be classified%s\n", YELLOW, j, RESET);
+                }
+                break;
+            }
+            openai.openai_interface.free(openAi);
         }
 
-        if(aproved){
+        if(status == true){
             printf("%sDocument %s is approved%s\n", GREEN, path, RESET);
            cJSON_AddItemToArray(approved, cJSON_CreateString(path));
         }
         else{
             printf("%sDocument %s is not approved%s\n", RED, path, RESET);
         }
-        openai.openai_interface.free(openAi);
+
     }
    
    
