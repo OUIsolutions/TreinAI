@@ -23,7 +23,6 @@ char *agent_deep_search(cJSON *args, void *pointer){
     if(!cJSON_IsString(question)){
         return NULL;
     }
-    ModelProps *props = (ModelProps*)pointer;
 
     
     printf("%sSTARTING DEEP SEARCH FOR QUESTION: %s\n%s",YELLOW, question->valuestring, RESET);
@@ -44,12 +43,12 @@ char *agent_deep_search(cJSON *args, void *pointer){
         openai.openai_interface.add_system_prompt(openAi,"you have to set the rate of the document");
         openai.openai_interface.add_system_prompt(openAi,"make rate between 0 and 1000");
         char *question_str = malloc(strlen(question->valuestring) + 100);
-        sprintf(question,"question: %s",question->valuestring);
-        openai.openai_interface.add_system_prompt(openAi,question);
+        sprintf(question_str,"question: %s",question->valuestring);
+        openai.openai_interface.add_system_prompt(openAi,question_str);
 
-        char *content = malloc(strlen(content) + 100);
-        sprintf(content,"content: %s",content);
-        openai.openai_interface.add_system_prompt(openAi,content);
+        char *str_content_frase = malloc(strlen(content) + 100);
+        sprintf(str_content_frase,"content: %s",content);
+        openai.openai_interface.add_system_prompt(openAi,str_content_frase);
 
         
         OpenAiResponse *response =  OpenAiInterface_make_question_finish_reason_treated(openAi);
