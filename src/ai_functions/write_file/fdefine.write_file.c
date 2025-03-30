@@ -14,7 +14,7 @@ char *agent_write_file(cJSON *args, void *pointer){
     }
     long size;
     bool is_binary;
-    char *temp_content = dtw.load_any_content(path->valuestring, &size, &is_binary);
+    char *temp_content = (char *)dtw.load_any_content(path->valuestring, &size, &is_binary);
 
     dtw.write_string_file_content(path->valuestring, content->valuestring);
 
@@ -24,7 +24,7 @@ char *agent_write_file(cJSON *args, void *pointer){
     if(!aply){
         //means that file already exists
         if(is_binary){
-            dtw.write_any_content(path->valuestring, temp_content, size);
+            dtw.write_any_content(path->valuestring, (unsigned char *)temp_content, size);
         }
         else
         {
