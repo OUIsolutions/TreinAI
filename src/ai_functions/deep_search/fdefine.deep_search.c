@@ -53,27 +53,21 @@ char *agent_deep_search(cJSON *args, void *pointer){
                 char *str_content_frase = malloc(strlen(content) + 100);
                 sprintf(str_content_frase,"content: %s",content);
 
-
                 openai.openai_interface.add_system_prompt(openAi,str_content_frase);
 
-                
                 OpenAiResponse *response =  OpenAiInterface_make_question_finish_reason_treated(openAi);
                 if(openai.openai_interface.error(response)){
                 printf("%sError: %s%s\n", RED, openai.openai_interface.get_error_message(response), RESET);
                     return strdup("error");
                 }
-                const char *first_answer = openai.response.get_content_str(response,0);
-                if(first_answer == NULL){
-                printf("%sError: %s%s\n", RED, "No answer found", RESET);
-                return strdup("error");
-                }
+                openai.openai_interface.free(openAi);
+
                 if(rate > 0){
-                    if(j >0){
-                        printf("docment repeat: %s %d n",path, j);
+                    if(j >0 ){
+                        printf("document fail %s %d times\n",path,j);
                     }
                     break;
                 }
-                
         }
         if(rate > 0){
             cJSON_AddItemToArray(aproved,cJSON_CreateString(path));
