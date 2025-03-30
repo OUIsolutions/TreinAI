@@ -62,23 +62,38 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         
         // Construir caminho completo e carregar conteúdo
         char *path = dtw.concat_path(current_dir, raw_path);
-        char *content = dtw.load_string_file_content(path);
+        char *raw_content = dtw.load_string_file_content(path);
 
         // Pular arquivos vazios ou nulos
-        if (content == NULL) {
+        if (raw_content == NULL) {
             free(path);
             continue;
         }
 
         // Verificar tamanho do arquivo
-        size_t content_length = strlen(content);
+        size_t content_length = strlen(raw_content);
         if (content_length > 10000 || content_length < 50) {  // Ignora arquivos muito grandes ou muito pequenos
             printf("%sSkipping %s (size: %zu)%s\n", YELLOW, path, content_length, RESET);
             free(path);
-            free(content);
+            free(raw_content);
             continue;
         }
         
+        OpenAiInterface *resume = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
+        openai.openai_interface.set_cache(resume, ".cache_dir", true);
+        openai.openai_interface.add_system_prompt(resume,"Your task is to make the resume of at max 1000 chars the document");
+        openai.openai_interface.add_system_prompt(resume,"return only the resume of the document");
+        openai.openai_interface.add_user_prompt(resume, raw_content);
+        OpenAiResponse *response = openai.openai_interface.make_question(resume);
+
+        if(openai.response.error(response)){
+            printf("%sError: %s%s\n", RED, openai.response.get_error_message(response), RESET);
+            continue;
+        }
+        const char *content = openai.response.get_content_str(response,0);
+        printf("%sResume of %s\n\n", YELLOW, path);
+        printf("%s%s%s\n", GREEN, content, RESET);
+        printf("--------------------------------------------\n");
         // Classificar o documento
         int  status = -1;
         int attempt = 10;
@@ -129,12 +144,8 @@ char *agent_deep_search(cJSON *args, void *pointer) {
 
     }
    
-    cJSON *aproved_tree = cJSON_CreateObject();
-    for(int i = 0; i < cJSON_GetArraySize(approved); i++){
-        cJSON *doc = cJSON_GetArrayItem(approved, i);
-        cJSON_AddItemToObject(aproved_tree, doc->valuestring, dtw.load_string_file_content(doc->valuestring));
-    }
-    return cJSON_Print(aproved_tree);
+    
+    return cJSON_Print(approved);
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
