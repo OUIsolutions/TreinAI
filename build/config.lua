@@ -1,4 +1,4 @@
-PROJECT_NAME = "TreinAi"
+PROJECT_NAME = "TreinAI"
 CONTANIZER   = "podman"
 VERSION      = "0.0.9"
 LICENSE      = "MIT"
