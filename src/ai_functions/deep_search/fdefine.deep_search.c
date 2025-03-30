@@ -129,8 +129,12 @@ char *agent_deep_search(cJSON *args, void *pointer) {
 
     }
    
-   
-    return cJSON_Print(approved);
+    cJSON *aproved_tree = cJSON_CreateObject();
+    for(int i = 0; i < cJSON_GetArraySize(approved); i++){
+        cJSON *doc = cJSON_GetArrayItem(approved, i);
+        cJSON_AddItemToObject(aproved_tree, doc->valuestring, dtw.load_string_file_content(doc->valuestring));
+    }
+    return cJSON_Print(aproved_tree);
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
