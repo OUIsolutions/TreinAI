@@ -19,7 +19,7 @@ char *agent_write_file(cJSON *args, void *pointer){
     dtw.write_string_file_content(path->valuestring, content->valuestring);
 
    
-    printf("%s %s APLY THE MODIFCATIONS IN: '%s'",YELLOW,model, path->valuestring, PURPLE);
+    printf("%s %s APLY THE MODIFCATIONS IN: '%s'%s",YELLOW,model, path->valuestring, PURPLE);
     bool aply = ask_yes_or_no();
     if(!aply){
         //means that file already exists
