@@ -28,12 +28,13 @@ char *agent_deep_search(cJSON *args, void *pointer){
         KnolageDigestor_digest_file(knolage_digestor,path, content);
         free(content);
     }
-    
-    return (char*)"not found";
+    printf("%s FINAL DIGEST %s %s",YELLOW, knolage_digestor->actual_response, RESET);
+    KnolageDigestor_free(knolage_digestor);
+    return knolage_digestor->actual_response;
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_deep_search,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the answer", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_deep_search,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the answer", true);
     OpenAiInterface_add_parameters_in_callback(callback, "question", "The question you want to ask", "string", false);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }
