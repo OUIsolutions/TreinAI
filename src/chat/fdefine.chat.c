@@ -30,9 +30,9 @@ char * collect_user_input(){
   return buffer;
 }
 
-bool ask_yes_or_no(const char *question) {
+bool ask_yes_or_no() {
     // Ask the user the question
-    printf("%s (y/n): ", question);
+    printf("(y/n): ");
     char *user_input = collect_user_input();
 
     // Check the user's response

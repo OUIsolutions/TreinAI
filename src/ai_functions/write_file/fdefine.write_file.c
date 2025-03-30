@@ -12,8 +12,29 @@ char *agent_write_file(cJSON *args, void *pointer){
     if(!cJSON_IsString(path) || !cJSON_IsString(content)){
         return NULL;
     }
+    int size;
+    bool is_binary;
+    char *temp_content = dtw.load_any_content(path->valuestring, &size, &is_binary);
+
     dtw.write_string_file_content(path->valuestring, content->valuestring);
-    printf("%s %s WRITE: %s\n",YELLOW,model, path->valuestring, RESET);
+
+   
+    printf("%s %s APLY THE MODIFCATIONS IN: '%s'",YELLOW,model, path->valuestring, PURPLE);
+    bool aply = ask_yes_or_no();
+    if(!aply){
+        //means that file already exists
+        if(is_binary){
+            dtw.write_any_content(path->valuestring, temp_content, size);
+        }
+        else
+        {
+           dtw.remove_any(path->valuestring);
+        }
+        release_if_not_null(temp_content,free);
+        return (char*)"user canceled";
+    }
+
+    release_if_not_null(temp_content,free);
     return (char*)"file wrotted";
 }
 

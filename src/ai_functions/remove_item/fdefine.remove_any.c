@@ -6,12 +6,19 @@
 //silver_chain_scope_end
 
 char *agent_remove_file(cJSON *args, void *pointer){
+    
+    
     cJSON *path = cJSON_GetObjectItem(args, "path");
     if(!cJSON_IsString(path)){
         return NULL;
     }
+    printf("%s Remove: '%s'",YELLOW, path->valuestring, RESET);
+    bool remove = ask_yes_or_no();
+    if(!remove){
+        return (char*)"user canceled";
+    }
+
     dtw.remove_any(path->valuestring);
-    printf("%s AI REMOVED: %s\n",YELLOW, path->valuestring, RESET);
     return (char*)"file or directory removed";
 }
 

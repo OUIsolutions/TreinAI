@@ -11,8 +11,12 @@ char *agent_move_item(cJSON *args, void *pointer){
     if(!cJSON_IsString(src) || !cJSON_IsString(dest)){
         return NULL;
     }
+    printf("%s Move: '%s' to '%s'",YELLOW, src->valuestring, dest->valuestring, RESET);    
+    bool move_item = ask_yes_or_no();
+    if(!move_item){
+        return (char*)"user canceled";
+    }
     dtw.move_any(src->valuestring, dest->valuestring,false);
-    printf("%s AI MOVED: %s to %s\n",YELLOW, src->valuestring, dest->valuestring, RESET);
     return (char*)"item moved";
 }
 
