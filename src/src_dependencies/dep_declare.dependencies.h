@@ -1,4 +1,5 @@
 
+#define OPEN_AI_ALLOW_DTW
 
 #include "../../dependencies/BearHttpsClient.h"
 #include "../../dependencies/CArgvParse.h"

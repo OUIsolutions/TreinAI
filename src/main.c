@@ -6,6 +6,9 @@
 //silver_chain_scope_end
 
 
+
+
+
 int main(int argc, char  *argv[]){
     start_namespace();
 
