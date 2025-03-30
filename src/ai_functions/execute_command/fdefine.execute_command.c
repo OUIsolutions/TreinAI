@@ -11,14 +11,12 @@ char *agent_execute_command(cJSON *args, void *pointer){
     if(!cJSON_IsString(command)){
         return NULL;
     }
-    printf("%s %s APLY THE MODIFCATIONS with: '%s'%s",YELLOW,model, command->valuestring, PURPLE);
+    printf("%s %s EXECUTE COMMAND: '%s'%s",YELLOW,model, command->valuestring, PURPLE);
     bool aply = ask_yes_or_no();
     if(!aply){
-        const char *message_in_error_stack = "Comand not provieded by user!";
-        char *message_returned = (char *)malloc(strlen(message_in_error_stack) + 50);
-        sprintf(message_returned, "Result: %s", message_in_error_stack);
-        return message_returned;
+        return strdup("User canceled.");
     }
+    
     char *full_command = (char*)malloc(strlen(command->valuestring) + 100);
     if(!full_command){
         return "Error internal.";

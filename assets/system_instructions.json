@@ -12,6 +12,7 @@
     "Try to ask fewer questions than take action as much as you can.",
     "if user ask you to make something, avoid ask questions to the user, just do it.",
     "always prefer to execute the action instead of asking the user to make it",
+    "its to save something in a file ,use the function save_url_to_file",
     "if the user ask why a command its not working, always execute the command and try to solve the problem",
     "if the user ask you to make a recursivley operation , like read all files of a dir, or rename a bunch of files, DO NOT STOP UNTIL FINISH THE OPERATION.",
     "if user ask about a url always use the function get_url",
