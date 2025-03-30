@@ -8,7 +8,8 @@
 
 typedef struct KnolageDigestor{
     OpenAiInterface *openAi;
-    char *content;   
+    char *actual_response;  
+    int actual_response_size; 
 }KnolageDigestor;
 
 
