@@ -8,6 +8,7 @@
 
 int main(int argc, char  *argv[]){
     start_namespace();
+
     args_obj  = args.newCArgvParse(argc, argv);
     
     unsigned char *encryption_key = (unsigned char*)malloc(TreinAIkey_size+1);
