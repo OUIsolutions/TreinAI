@@ -35,7 +35,7 @@ char *agent_deep_search(cJSON *args, void *pointer){
         char *raw_path = doc_dir->strings[i];
          bool is_hidden = dtw_starts_with(raw_path, ".");
         if(is_hidden){
-            printf("ignored %s\n",raw_path);
+          ///  printf("ignored %s\n",raw_path);
             continue;
         }
         
@@ -59,9 +59,9 @@ char *agent_deep_search(cJSON *args, void *pointer){
                 OpenAiInterface_add_parameters_in_callback(callback, "rate", "The rate you want to set", "number", true);
                 OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 
-                openai.openai_interface.add_system_prompt(openAi,"your function its to clasify how useful is the document for the question");
+                openai.openai_interface.add_system_prompt(openAi,"your function its to clasify how useful is the content to solve the question");
                 openai.openai_interface.add_system_prompt(openAi,"YOU MUST CALL THE FUNCTION set_rate WITH THE RATE OF THE DOCUMENT");
-                openai.openai_interface.add_system_prompt(openAi,"make rate between 1 and 1000");
+                openai.openai_interface.add_system_prompt(openAi,"make rate between 1 and 10");
                 char *question_str = malloc(strlen(question->valuestring) + 100);
                 sprintf(question_str,"question: %s",question->valuestring);
                 openai.openai_interface.add_system_prompt(openAi,question_str);
@@ -85,12 +85,18 @@ char *agent_deep_search(cJSON *args, void *pointer){
                     break;
                 }
         }
-        if(rate > 800){
+
+        if(rate >= 5){
+            printf("%saproved %s%s\n",GREEN,path,RESET);
             cJSON_AddItemToArray(aproved,cJSON_CreateString(path));
         }
         printf("docment:%s -> %d\n",path, rate);
     }
     
+    //ordenate the documents by rate
+    
+    
+
 
     return cJSON_Print(aproved);
 }
