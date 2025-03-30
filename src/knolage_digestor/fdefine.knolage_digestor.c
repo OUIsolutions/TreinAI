@@ -75,10 +75,11 @@ void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
    snprintf(formmated_current_item,strlen(current_item)+100,"current_item: %s\n",current_item);
    openai.openai_interface.add_temp_system_prompt(self->openAi,formmated_current_item);
     free(formmated_current_item);
+    OpenAiInterface_make_question_finish_reason_treated(self->openAi);
 }
 
 void KnolageDigestor_digest_file(KnolageDigestor *self,const char *file_path,const char *current_item){
-  printf("%s IMPROVING SEARCH WITH FILE: %s\n%s",YELLOW,file_path,RESET);
+  printf("%s DIGGESTING FILE: %s\n%s",YELLOW,file_path,RESET);
   int required_size = strlen(current_item)+strlen(file_path)+100;
   char* formmated_current_item = malloc(required_size);
   snprintf(formmated_current_item,required_size,"\tfile_path: %s\ncontent:%s",file_path,current_item);

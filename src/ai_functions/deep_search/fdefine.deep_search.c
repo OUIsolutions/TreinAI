@@ -15,7 +15,7 @@ char *agent_deep_search(cJSON *args, void *pointer){
     }
 
     
-    printf("question %s\n", question->valuestring);
+    printf("%sSTARTING DEEP SEARCH FOR QUESTION: %s\n%s",YELLOW, question->valuestring, RESET);
     
     KnolageDigestor *knolage_digestor = newKnolageDigestor((ModelProps*)pointer, question->valuestring);
     if(!knolage_digestor){
