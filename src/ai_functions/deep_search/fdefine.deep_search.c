@@ -75,11 +75,13 @@ char *agent_deep_search(cJSON *args, void *pointer){
                 }
                 
         }
-
+        if(rate > 0){
+            cJSON_AddItemToArray(aproved,cJSON_CreateString(path));
+        }
         printf("docment:%s -> %d\n",path, rate);
     }
     
-    return strdup("not found");
+    return cJSON_Print(aproved);
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
