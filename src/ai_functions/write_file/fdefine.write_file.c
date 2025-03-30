@@ -12,7 +12,7 @@ char *agent_write_file(cJSON *args, void *pointer){
     if(!cJSON_IsString(path) || !cJSON_IsString(content)){
         return NULL;
     }
-    int size;
+    long size;
     bool is_binary;
     char *temp_content = dtw.load_any_content(path->valuestring, &size, &is_binary);
 
