@@ -3,6 +3,7 @@
 keys.txt
 # Object files
 TreinAI
+cache_dir
 *.o
 *.ko
 digest
