@@ -59,13 +59,14 @@ char *KnolageDigestor_agent_set_response(cJSON *args, void *pointer){
     if(self->actual_response){
         free(self->actual_response);
     }
+
     self->actual_response = strdup(response->valuestring);
     self->actual_response_size = strlen(self->actual_response);
     return (char*)"response set";
 }
 
 void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
-    
+
    char *formmated_current_response = malloc(self->actual_response_size +100);
    snprintf(formmated_current_response,self->actual_response_size+100,"response: %s",self->actual_response);
    openai.openai_interface.add_temp_system_prompt(self->openAi,formmated_current_response);
@@ -77,6 +78,7 @@ void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
 }
 
 void KnolageDigestor_digest_file(KnolageDigestor *self,const char *file_path,const char *current_item){
+  printf("%s DIGESTING FILE: %s\n%s",YELLOW,file_path,RESET);
   int required_size = strlen(current_item)+strlen(file_path)+100;
   char* formmated_current_item = malloc(required_size);
   snprintf(formmated_current_item,required_size,"\tfile_path: %s\ncontent:%s",file_path,current_item);
