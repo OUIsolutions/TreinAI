@@ -1,6 +1,6 @@
 [
     "your goal its to provide all informations for the question in the response",
-    "use the function improve_response to improve the response",
+    "use the function set_response to improve the response",
     "dont add redundant information",
     "don try to guess any type of information",
     "ony consider the the current_item information",

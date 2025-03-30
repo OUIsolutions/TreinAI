@@ -14,14 +14,15 @@ KnolageDigestor *newKnolageDigestor(ModelProps *props, const char *question){
         return NULL;
     }
 
-    OpenAiCallback *callback = new_OpenAiCallback(agent_copy_item, (void*)KnolageDigestor_agent_set_response, "set_response", "set the response to the question", false);
-    OpenAiInterface_add_parameters_in_callback(callback, "response", "Pass the response.", "string", true);
-    OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 
 
     KnolageDigestor *self = (KnolageDigestor*)malloc(sizeof(KnolageDigestor));
     *self = (KnolageDigestor){0};
     self->openAi = openAi;
+
+    OpenAiCallback *callback = new_OpenAiCallback(KnolageDigestor_agent_set_response,self , "set_response", "set the response to the question", false);
+    OpenAiInterface_add_parameters_in_callback(callback, "response", "Pass the response, you want to improve" , "string", true);
+    OpenAiInterface_add_callback_function_by_tools(openAi, callback);
     
     Asset * digestor_rules = get_asset("system_instructions/knolage_digestor.json");
     if(!digestor_rules){
@@ -99,7 +100,7 @@ void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
     sprintf(path,"digest/%d.txt",self->total_digest);
     dtw.write_string_file_content(path,self->actual_response);
   }
-
+  printf("%s\t < %s%s\n", BLUE,first_answer, RESET);
 
 }
 

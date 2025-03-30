@@ -53,6 +53,9 @@ int start_action(){
         return 1;
     }
 
+  
+
+
     OpenAiInterface *openAi = initialize_openai_interface(props);
     if(!openAi){
         return 1;
