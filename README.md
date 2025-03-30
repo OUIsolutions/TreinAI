@@ -1,5 +1,7 @@
 # TremAi
-A CLI tool to help you to Code and execute command
+A CLI tool to help you to Code and execute command highly inspired on Copilot and Cursor
+
+![Tumb Image](/imgs/tremAi.jpg)
 
 ## About the Project
 
