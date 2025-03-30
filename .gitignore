@@ -5,6 +5,7 @@ keys.txt
 TreinAI
 *.o
 *.ko
+digest
 macros.encrypt_key.h
 vgcore*
 RagCraft

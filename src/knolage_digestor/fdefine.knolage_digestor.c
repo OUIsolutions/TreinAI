@@ -64,7 +64,7 @@ char *KnolageDigestor_agent_set_response(cJSON *args, void *pointer){
 
     self->actual_response = strdup(response->valuestring);
     self->actual_response_size = strlen(self->actual_response);
-    return (char*)"response set";
+    return (char*)"response updated";
 }
 
 void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
@@ -100,7 +100,6 @@ void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
     sprintf(path,"digest/%d.txt",self->total_digest);
     dtw.write_string_file_content(path,self->actual_response);
   }
-  printf("%s\t < %s%s\n", BLUE,first_answer, RESET);
 
 }
 
