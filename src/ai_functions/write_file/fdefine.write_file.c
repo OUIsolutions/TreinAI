@@ -12,6 +12,18 @@ char *agent_write_file(cJSON *args, void *pointer){
     if(!cJSON_IsString(path) || !cJSON_IsString(content)){
         return NULL;
     }
+
+    if(dtw.entity_type(path->valuestring) == DTW_FOLDER_TYPE){
+        printf("%s REMOVE THE FOLDER '%s' TO SAVE THE FILE%s",RED,path->valuestring,RESET);
+        bool remove = ask_yes_or_no();
+        if(remove){
+            dtw.remove_any(path->valuestring);
+        }
+        else{
+            return (char*)"user canceled";
+        }
+    }
+
     long size;
     bool is_binary;
     char *temp_content = dtw.load_any_content(path->valuestring, &size, &is_binary);
@@ -23,11 +35,11 @@ char *agent_write_file(cJSON *args, void *pointer){
     bool aply = ask_yes_or_no();
     if(!aply){
         //means that file already exists
-        if(is_binary){
+        if(temp_content){
             dtw.write_any_content(path->valuestring, temp_content, size);
         }
-        else
-        {
+        //means the file not existed before
+        else{
            dtw.remove_any(path->valuestring);
         }
         release_if_not_null(temp_content,free);
