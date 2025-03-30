@@ -3,7 +3,7 @@ A CLI tool to help you to Code and execute command
 
 ## About the Project
 
-
+**TreinAI** is an assistance agent for project developers, with full read and write permissions. It can help with simple questions, project development, and even execute system commands. TreinAI is located at [https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI).
 
 - **Model Configuration**: Easily configure and manage different language models.
 - **API Integration**: Seamless integration with various APIs for enhanced functionality.
@@ -35,4 +35,3 @@ TremAi itself release, can help you to understand the project, if you want acces
 |[assets_embed_vars.md](/docs/assets_embed_vars.md)| Description of the embedded variables in the assets folder. |
 |[licenses.md](/docs/licenses.md)| Licenses of the dependencies used in the project. |
 |[project_workfow.md](/docs/project_workfow.md)| Overview of the project workflow and use cases. |
-
