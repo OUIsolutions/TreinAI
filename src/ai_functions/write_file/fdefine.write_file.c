@@ -26,7 +26,7 @@ char *agent_write_file(cJSON *args, void *pointer){
 
     long size;
     bool is_binary;
-    char *temp_content = dtw.load_any_content(path->valuestring, &size, &is_binary);
+    char *temp_content = (char *)dtw.load_any_content(path->valuestring, &size, &is_binary);
 
     dtw.write_string_file_content(path->valuestring, content->valuestring);
 

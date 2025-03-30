@@ -11,7 +11,18 @@ char *agent_execute_command(cJSON *args, void *pointer){
     if(!cJSON_IsString(command)){
         return NULL;
     }
+    printf("%s %s APLY THE MODIFCATIONS with: '%s'%s",YELLOW,model, command->valuestring, PURPLE);
+    bool aply = ask_yes_or_no();
+    if(!aply){
+        const char *message_in_error_stack = "Comand not provieded by user!";
+        char *message_returned = (char *)malloc(strlen(message_in_error_stack) + 50);
+        sprintf(message_returned, "Result: %s", message_in_error_stack);
+        return message_returned;
+    }
     char *full_command = (char*)malloc(strlen(command->valuestring) + 100);
+    if(!full_command){
+        return "Error internal.";
+    }
     sprintf(full_command, "%s  &> cache.txt", command->valuestring);
     int result = system(full_command);    
     char *output = dtw.load_string_file_content("cache.txt");
@@ -20,7 +31,7 @@ char *agent_execute_command(cJSON *args, void *pointer){
     char *result_str = (char*)malloc(strlen(output) + 100);
     sprintf(result_str, "status: %d\nOutput:\n%s", result, output);
     free(output);
-    printf("%s %s EXECUTED COMMAND: %s\n", YELLOW, model, command->valuestring, RESET);
+    printf("%s %s EXECUTED COMMAND: %s%s\n", YELLOW, model, command->valuestring, RESET);
     return result_str;
 }
 
