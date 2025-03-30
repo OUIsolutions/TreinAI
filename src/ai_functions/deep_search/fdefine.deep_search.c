@@ -46,10 +46,15 @@ char *agent_deep_search(cJSON *args, void *pointer){
             continue;
         }
 
+        if(strlen(content) > 10000){
+            printf("%sextra size %s \n ",YELLOW, path,RESET);
+            continue;
+        }
+
 
         for(int j=0; j < 10;j++){
                 OpenAiInterface *openAi =openai.openai_interface.newOpenAiInterface(props->url, props->key,props->model);
-                openai.openai_interface.set_cache(openAi, "cache_dir",true);
+                openai.openai_interface.set_cache(openAi, ".cache_dir",true);
                 OpenAiCallback *callback = new_OpenAiCallback(agent_set_rate, &rate, "set_rate", "set the rate of the model", false);
                 OpenAiInterface_add_parameters_in_callback(callback, "rate", "The rate you want to set", "number", true);
                 OpenAiInterface_add_callback_function_by_tools(openAi, callback);

@@ -6,6 +6,8 @@ TreinAI
 cache_dir
 *.o
 *.ko
+.cache_di
+.cache_dir
 digest
 macros.encrypt_key.h
 vgcore*
