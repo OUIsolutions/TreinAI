@@ -78,7 +78,7 @@ void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
 }
 
 void KnolageDigestor_digest_file(KnolageDigestor *self,const char *file_path,const char *current_item){
-  printf("%s DIGESTING FILE: %s\n%s",YELLOW,file_path,RESET);
+  printf("%s IMPROVING SEARCH WITH FILE: %s\n%s",YELLOW,file_path,RESET);
   int required_size = strlen(current_item)+strlen(file_path)+100;
   char* formmated_current_item = malloc(required_size);
   snprintf(formmated_current_item,required_size,"\tfile_path: %s\ncontent:%s",file_path,current_item);
