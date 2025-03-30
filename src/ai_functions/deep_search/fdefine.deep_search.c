@@ -12,10 +12,10 @@ char *agent_set_status(cJSON *args, void *pointer){
         return NULL;
     }
     int *status_pointer = (int*)pointer;
-    if(strcmp(status->valuestring, "usefull") == 0){
+    if(strcmp(status->valuestring, "related") == 0){
         *status_pointer = true;
     }
-    else if(strcmp(status->valuestring, "crap") == 0){
+    else if(strcmp(status->valuestring, "disconnected") == 0){
         *status_pointer = false;
     }
   
@@ -87,14 +87,13 @@ char *agent_deep_search(cJSON *args, void *pointer) {
             openai.openai_interface.set_cache(openAi, ".cache_dir", true);
             
             // Configurar callback
-            OpenAiCallback *callback = new_OpenAiCallback(agent_set_status, &status, "set_status",  "determine if a content its usefull or crap", false);
-            OpenAiInterface_add_parameters_in_callback(callback, "status", "set usefull if the element its usefull to solve the question or crap if its usless", "string", true);
+            OpenAiCallback *callback = new_OpenAiCallback(agent_set_status, &status, "set_status",  "determine if a content its related or disconnected", false);
+            OpenAiInterface_add_parameters_in_callback(callback, "status", "set related if the element its related to  to the question set disconnected if the subjects does not match", "string", true);
             OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 
             // Configurar prompts
-            openai.openai_interface.add_system_prompt(openAi, "Your task is to determine if the document is contains a example of one of the answers to the question");
+            openai.openai_interface.add_system_prompt(openAi, "Your task is determine it the content is related to the question");
             openai.openai_interface.add_system_prompt(openAi, "YOU MUST CALL THE FUNCTION set_status WITH THE STATUS OF THE DOCUMENT");
-            openai.openai_interface.add_system_prompt(openAi, "if you find something useful call set_status with the status usefull");
             
             char *question_str = malloc(strlen(question->valuestring) + 100);
             sprintf(question_str, "Question: %s\n\n\n", question->valuestring);
