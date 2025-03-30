@@ -8,6 +8,9 @@
 
 KnolageDigestor *newKnolageDigestor(ModelProps *props, const char *question);
 
+
+char *KnolageDigestor_agent_set_response(cJSON *args, void *pointer);
+
 void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item);
 
 void KnolageDigestor_digest_file(KnolageDigestor *self,const char *file_path,const char *current_item);

@@ -14,6 +14,11 @@ KnolageDigestor *newKnolageDigestor(ModelProps *props, const char *question){
         return NULL;
     }
 
+    OpenAiCallback *callback = new_OpenAiCallback(agent_copy_item, (void*)KnolageDigestor_agent_set_response, "set_response", "set the response to the question", false);
+    OpenAiInterface_add_parameters_in_callback(callback, "response", "Pass the response.", "string", true);
+    OpenAiInterface_add_callback_function_by_tools(openAi, callback);
+
+
     KnolageDigestor *self = (KnolageDigestor*)malloc(sizeof(KnolageDigestor));
     *self = (KnolageDigestor){0};
     self->openAi = openAi;
@@ -43,6 +48,20 @@ KnolageDigestor *newKnolageDigestor(ModelProps *props, const char *question){
     cJSON_Delete(rules);
 
     return self;
+}
+
+char *KnolageDigestor_agent_set_response(cJSON *args, void *pointer){
+    cJSON *response = cJSON_GetObjectItem(args, "response");
+    if(!cJSON_IsString(response)){
+        return NULL;
+    }
+    KnolageDigestor *self = (KnolageDigestor*)pointer;
+    if(self->actual_response){
+        free(self->actual_response);
+    }
+    self->actual_response = response->valuestring;
+    self->actual_response_size = strlen(self->actual_response);
+    return (char*)"response set";
 }
 
 void KnolageDigestor_digest(KnolageDigestor *self,const char *current_item){
