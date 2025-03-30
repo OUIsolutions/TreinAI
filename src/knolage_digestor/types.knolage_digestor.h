@@ -10,6 +10,7 @@ typedef struct KnolageDigestor{
     OpenAiInterface *openAi;
     char *actual_response;  
     int actual_response_size; 
+    int total_digest;
 }KnolageDigestor;
 
 

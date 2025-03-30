@@ -2,6 +2,9 @@
     "your goal its to provide all informations for the question in the response",
     "use the function improve_response to improve the response",
     "dont add redundant information",
+    "don try to guess any type of information",
+    "ony consider the the current_item information",
     "if the current_item information its usless, dont make nothing",
-    "if the current_item information agregate value, improve the text"
+    "if the current_item information agregate value, improve the text",
+    "always respond with response set or nothing usefull"
 ]
