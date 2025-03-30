@@ -1,4 +1,4 @@
-Usage: RagCraft [COMMAND] [OPTIONS]
+Usage: TreinAI [COMMAND] [OPTIONS]
 Commands:
 configure_model    Configure an AI model with API endpoint and authentication
 start              Start the RAG application
@@ -7,13 +7,13 @@ remove_model      Remove a configured model
 list_models       List all configured models
 --help             Display this help information
 Examples:
-RagCraft configure_model --model grok-2-latest --url test  --key your_key
-RagCraft start (will start with the default model)
-RagCraft start --model grok-2-latest (will start with the grok model)
-RagCraft set_default_model --model grok-2-latest
-RagCraft remove_model --model grok-2-latest
-RagCraft list_models
-RagCraft --help
+TreinAI configure_model --model grok-2-latest --url test  --key your_key
+TreinAI start (will start with the default model)
+TreinAI start --model grok-2-latest (will start with the grok model)
+TreinAI set_default_model --model grok-2-latest
+TreinAI remove_model --model grok-2-latest
+TreinAI list_models
+TreinAI --help
 Options:
 --model STRING     Specify which AI model to use (default: gpt-4o)
 --url STRING       Specify the API endpoint URL
