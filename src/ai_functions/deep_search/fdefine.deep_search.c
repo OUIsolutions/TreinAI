@@ -32,8 +32,8 @@ char *agent_deep_search(cJSON *args, void *pointer){
     return (char*)"not found";
 }
 
-void configure_deep_search(OpenAiInterface *openAi,const char *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_search_how_to,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the answer", false);
+void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
+    OpenAiCallback *callback = new_OpenAiCallback(agent_deep_search,(void*)model, "make_a_deep_search", "will make a deep search into the project to find the answer", false);
     OpenAiInterface_add_parameters_in_callback(callback, "question", "The question you want to ask", "string", false);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }

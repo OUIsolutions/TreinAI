@@ -7,4 +7,4 @@
 
 char *agent_execute_command(cJSON *args, void *pointer);
 
-void configure_execute_command_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_execute_command_callbacks(OpenAiInterface *openAi,ModelProps *model);

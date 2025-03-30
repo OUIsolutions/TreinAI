@@ -7,6 +7,9 @@
 
 
 
-char *agent_search_how_to(cJSON *args, void *pointer);
 
-void configure_search_how_to(OpenAiInterface *openAi,const char *model);
+
+char *agent_deep_search(cJSON *args, void *pointer);
+
+
+void configure_deep_search(OpenAiInterface *openAi,ModelProps *model;

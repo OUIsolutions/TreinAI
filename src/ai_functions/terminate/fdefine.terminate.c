@@ -12,7 +12,7 @@ char *agent_terminate(cJSON *args, void *pointer){
     return NULL;
 }
 
-void configure_terminate_callbacks(OpenAiInterface *openAi,const char *model){
+void configure_terminate_callbacks(OpenAiInterface *openAi,ModelProps *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_terminate, (void*)model, "terminate", "terminate the conversation", false);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }

@@ -50,7 +50,7 @@ char *agent_write_file(cJSON *args, void *pointer){
     return (char*)"file wrotted";
 }
 
-void configure_write_file_callbacks(OpenAiInterface *openAi,const char *model){
+void configure_write_file_callbacks(OpenAiInterface *openAi,ModelProps *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_write_file, (void*)model, "write_file", "write a file content", false);
     OpenAiInterface_add_parameters_in_callback(callback, "path", "Pass the path you want to write.", "string", true);
     OpenAiInterface_add_parameters_in_callback(callback, "content", "Pass the content you want to write.", "string", true);

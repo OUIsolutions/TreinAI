@@ -32,7 +32,7 @@ ModelProps *props = (ModelProps*)pointer;
     return result_str;
 }
 
-void configure_execute_command_callbacks(OpenAiInterface *openAi,const char *model){
+void configure_execute_command_callbacks(OpenAiInterface *openAi,ModelProps *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_execute_command, (void*)model, "execute_command", "execute a command", false);
     OpenAiInterface_add_parameters_in_callback(callback, "command", "Pass the command you want to execute.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);

@@ -21,7 +21,7 @@ char *agent_copy_item(cJSON *args, void *pointer){
     return (char*)"item copied";
 }
 
-void configure_copy_item_callbacks(OpenAiInterface *openAi,const char *model){
+void configure_copy_item_callbacks(OpenAiInterface *openAi,ModelProps *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_copy_item, (void*)model, "copy", "copy a file or directory", false);
     OpenAiInterface_add_parameters_in_callback(callback, "src", "Pass the source path.", "string", true);
     OpenAiInterface_add_parameters_in_callback(callback, "dest", "Pass the destination path.", "string", true);

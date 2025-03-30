@@ -7,4 +7,4 @@
 
 char *agent_write_file(cJSON *args, void *pointer);
 
-void configure_write_file_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_write_file_callbacks(OpenAiInterface *openAi,ModelProps *model);

@@ -7,4 +7,4 @@
 
 char *agent_copy_item(cJSON *args, void *pointer);
 
-void configure_copy_item_callbacks(OpenAiInterface *openAi,const char *model);
+void configure_copy_item_callbacks(OpenAiInterface *openAi,ModelProps *model);
