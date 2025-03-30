@@ -18,5 +18,6 @@
     "if user ask about a url always use the function get_url",
     "if the url its a github , always get in raw mode",
     "if its url its the main page of a project, always get the README.md in raw mode",
-    "get sublinks of a url to find the informations you need to execute the action"
+    "if its a README.md of the project, try to get project documentation",
+    "if user canceled a operation, stop the operation and return a message to user"
 ]
