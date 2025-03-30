@@ -16,17 +16,13 @@ char *agent_save_url_to_file(cJSON *args, void *pointer){
         return NULL;
     }
 
-    if(dtw.entity_type(output->valuestring) == DTW_FOLDER_TYPE){
-        printf("%s REMOVE THE FOLDER '%s' TO SAVE THE FILE%s",RED,output->valuestring,RESET);
-        bool remove = ask_yes_or_no();
-        if(remove){
-            dtw.remove_any(output->valuestring);
-        }
-        else{
-            return (char*)"user canceled";
-        }
+      
+    printf("%s %s DOWNLOAD THE URL '%s' IN: '%s'%s",YELLOW,model,url->valuestring, output->valuestring, PURPLE);
+    bool aply = ask_yes_or_no();
+    if(!aply){
+        return (char*)"user canceled";
     }
-    
+
     BearHttpsRequest *request = bear.request.newBearHttpsRequest(url->valuestring);
     BearHttpsResponse *response = bear.request.fetch(request);
     if(bear.response.error(response)){
@@ -35,6 +31,8 @@ char *agent_save_url_to_file(cJSON *args, void *pointer){
         bear.request.free(request);
         return error;
     }
+
+
     unsigned char *body = bear.response.read_body(response);
     if(bear.response.error(response)){
         char *error = strdup(bear.response.get_error_msg(response));
@@ -43,28 +41,9 @@ char *agent_save_url_to_file(cJSON *args, void *pointer){
         return error;
     }
 
-    long size;
-    bool is_binary;
-    char *temp_content = dtw.load_any_content(output->valuestring, &size, &is_binary);
     long body_size = bear.response.get_body_size(response);
+    printf("size of the body: %ld\n", body_size);
     dtw.write_any_content(output->valuestring, (char*)body,body_size);
-   
-    printf("%s %s APLY THE MODIFCATIONS OF '%s' IN: '%s'%s",YELLOW,model,url->valuestring, output->valuestring, PURPLE);
-    bool aply = ask_yes_or_no();
-    if(!aply){
-        //means that file already exists
-        if(temp_content){
-            dtw.write_any_content(output->valuestring, temp_content, size);
-        }
-        else{
-           dtw.remove_any(output->valuestring);
-        }
-
-        release_if_not_null(temp_content,free);
-          bear.request.free(request);
-        bear.response.free(response);
-        return (char*)"user canceled";
-    }
 
     bear.request.free(request);
     bear.response.free(response);
