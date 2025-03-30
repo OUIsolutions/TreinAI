@@ -98,12 +98,12 @@ char *agent_deep_search(cJSON *args, void *pointer) {
             
             char *question_str = malloc(strlen(question->valuestring) + 100);
             sprintf(question_str, "Question: %s\n\n\n", question->valuestring);
-            openai.openai_interface.add_system_prompt(openAi, question_str);
+            openai.openai_interface.add_user_prompt(openAi, question_str);
         
 
             char *content_prompt = malloc(strlen(content) + 100);
             sprintf(content_prompt, "Content: %s",content);
-            openai.openai_interface.add_system_prompt(openAi, content_prompt);
+            openai.openai_interface.add_user_prompt(openAi, content_prompt);
         
             // Fazer a classificação
             OpenAiResponse *response = OpenAiInterface_make_question_finish_reason_treated(openAi);
