@@ -29,20 +29,30 @@ char *agent_deep_search(cJSON *args, void *pointer) {
     if (!cJSON_IsString(question)) {
         return NULL;
     }
-
-
+   
+    char *text_question = malloc(strlen(question->valuestring)+100);
+    snprintf(text_question,strlen(question->valuestring)+100,"your mission its to improve the final text to solve the question: %s",question->valuestring);
 
     char *final_text = NULL;
-    DtwStringArray *itens = dtw.list_files_recursively(".");
+    DtwStringArray *itens = dtw.list_files_recursively("docs",true);
 
-    OpenAiInterface *openAi = initialize_openai_interface(props);
-    if(!openAi){
-        return NULL;
+    for(int i = 0; i < itens->size;i++){
+            OpenAiInterface *openAi = initialize_openai_interface(props);
+            openai.openai_interface.add_system_prompt(openAi, "your mission its to improve the final text to solve the question");
+            openai.openai_interface.add_system_prompt(openAi, "NEVER WRITE UNECESSARY INFORMATION");
+            openai.openai_interface.add_system_prompt(openAi, "ONLY CALL SET TEXT IF YOU HAVE A USEFULL INFORMATION");
+            openai.openai_interface.add_system_prompt(openAi, "FOCCUS ON THE QUESTION, THE INFORMATION MUST SOLVES THE QUESTION");
+
+        
+
+
+
+            printf("%sSTARTING DEEP SEARCH FOR QUESTION: %s\n%s", YELLOW, question->valuestring, RESET);
+            
+        
     }
-    openai.openai_interface.add_system_prompt(openAi, "");
+    dtw.string_array.free(itens);
 
-    printf("%sSTARTING DEEP SEARCH FOR QUESTION: %s\n%s", YELLOW, question->valuestring, RESET);
-    
 
     //return cJSON_Print(approved);
 }
