@@ -11,4 +11,5 @@
 #include "../../dependencies/BearHttpsClient.c"
 #include "../../dependencies/CArgvParse.c"
 #include "../../dependencies/doTheWorld.c"
+#include "../../dependencies/CTextEngine.c"
 #endif 

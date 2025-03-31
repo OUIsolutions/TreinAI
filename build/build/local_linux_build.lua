@@ -10,6 +10,7 @@ function create_objects_ar()
       {command=compiler.." -c dependencies/doTheWorld.c -o libs/doTheWorld.o",entrie_path="dependencies/doTheWorld.c",out_path="libs/doTheWorld.o"},
     {command=compiler.." -c dependencies/BearHttpsClient.c -o libs/BearHttpsClient.o -DBEARSSL_HTTPS_MOCK_CJSON_DEFINE",entrie_path="dependencies/BearHttpsClient.c",out_path="libs/BearHttpsClient.o"},
     {command=compiler.." -c dependencies/CArgvParse.c -o libs/CArgvParse.o",entrie_path="dependencies/CArgvParse.c",out_path="libs/CArgvParse.o"},
+    {command=compiler.." -c dependencies/CTextEngine.c -o libs/CTextEngine.o",entrie_path="dependencies/CTextEngine.c",out_path="libs/CTextEngine.o"},
     }
 
     for _, item in ipairs(itens) do
@@ -34,7 +35,7 @@ function local_linux_build()
     if LAUNGUAGE == "cpp" then
         compiler = "g++"
     end
-    local compilation =compiler.." -o "..PROJECT_NAME .." src/main.c libs/doTheWorld.o libs/BearHttpsClient.o libs/CArgvParse.o "
+    local compilation =compiler.." -o "..PROJECT_NAME .." src/main.c libs/doTheWorld.o libs/BearHttpsClient.o libs/CArgvParse.o  libs/CTextEngine.o "
     print("compilation: ", compilation)
     os.execute(compilation)
    
