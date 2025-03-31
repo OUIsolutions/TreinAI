@@ -92,9 +92,9 @@ char *agent_deep_search(cJSON *args, void *pointer) {
             continue;
         }
         const char *content = openai.response.get_content_str(response,0);
-        printf("%sResume of %s\n\n", YELLOW, path);
-        printf("%s%s%s\n", GREEN, content, RESET);
-        printf("--------------------------------------------\n");
+        //printf("%sResume of %s\n\n", YELLOW, path);
+        //printf("%s%s%s\n", GREEN, content, RESET);
+        //printf("--------------------------------------------\n");
         // Classificar o documento
         int  status = -1;
         int attempt = 10;
@@ -144,9 +144,21 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         }
 
     }
-   
-    
-    return cJSON_Print(approved);
+    int allocated_size = 1000;
+    char *full_content =malloc(1000);
+    for(int i = 0; i < cJSON_GetArraySize(approved); i++){
+        cJSON *item = cJSON_GetArrayItem(approved, i);
+        char *path = item->valuestring;
+        char *content = dtw.load_string_file_content(path);
+      
+        while(allocated_size < strlen(full_content) + strlen(content) + 2){
+            allocated_size += 1000;
+            full_content = realloc(full_content, allocated_size);
+        }
+        strcat(full_content, content);
+        free(content);
+    }
+    return full_content;
 }
 
 void configure_deep_search(OpenAiInterface *openAi,ModelProps *model){
