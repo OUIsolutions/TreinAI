@@ -147,14 +147,21 @@ char *agent_deep_search(cJSON *args, void *pointer) {
     int allocated_size = 1000;
     char *full_content =malloc(1000);
     for(int i = 0; i < cJSON_GetArraySize(approved); i++){
+
+
         cJSON *item = cJSON_GetArrayItem(approved, i);
         char *path = item->valuestring;
         char *content = dtw.load_string_file_content(path);
-      
-        while(allocated_size < strlen(full_content) + strlen(content) + 2){
-            allocated_size += 1000;
+        
+        while(allocated_size < strlen(full_content) + strlen(content) + 100){
+            allocated_size *= 2;
             full_content = realloc(full_content, allocated_size);
         }
+
+        strcat(full_content ,"path:");
+        strcat(full_content, path);
+        strcat(full_content, "\n");
+        strcat(full_content, "content:\n");
         strcat(full_content, content);
         free(content);
     }
