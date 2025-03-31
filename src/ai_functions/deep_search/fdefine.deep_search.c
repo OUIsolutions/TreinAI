@@ -6,7 +6,7 @@
 //silver_chain_scope_end
 
 
-char *agent_set_status(cJSON *args, void *pointer){
+char *agent_set_text(cJSON *args, void *pointer){
     cJSON *status = cJSON_GetObjectItem(args, "status");
     if (!cJSON_IsString(status)) {
         return NULL;
@@ -30,9 +30,16 @@ char *agent_deep_search(cJSON *args, void *pointer) {
         return NULL;
     }
 
-    char *final_text = NULL;
 
-    
+
+    char *final_text = NULL;
+    DtwStringArray *itens = dtw.list_files_recursively(".");
+
+    OpenAiInterface *openAi = initialize_openai_interface(props);
+    if(!openAi){
+        return NULL;
+    }
+    openai.openai_interface.add_system_prompt(openAi, "");
 
     printf("%sSTARTING DEEP SEARCH FOR QUESTION: %s\n%s", YELLOW, question->valuestring, RESET);
     
