@@ -41,8 +41,16 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_get_url(openAi,props->model);
     configure_terminate_callbacks(openAi,props->model);
 
-    
-
+    CTextStack *resume = newCTextStack_string("Avaliable libraries:\n\n\n");
+    CTextStack_text(resume,"|Name |Description|\n");
+    CTextStack_text(resume,"|---|---|\n");
+    DtwStringArray *librarys  = dtw.list_dirs(LIBRARYS_DIR,false);
+    for(int i = 0; i < librarys->size; i++){
+      char *current = librarys->strings[i];
+      char *resume = dtw.concat_path(current,"resume.md");
+      
+      
+    }
 
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
     cJSON_Delete(rules);

@@ -9,5 +9,5 @@ const char *VERSION ="0.0.3";
 const char *NAME_CHAT = "TreinAI";
 
 
-
+const char *LIBRARYS_DIR = "TreinAiLibrarys";
 
