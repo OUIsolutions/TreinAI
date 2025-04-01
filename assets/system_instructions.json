@@ -12,10 +12,11 @@
     "denied_operation": "if the user denied an operation, stop and ask user for information",
     "set_context_memorization": "Always attempt to set_context_doc information when not immediately successful",
     "operations_times": "Make operations only once, unless the user asks for repetition",
-    "prority_operations": "Always prioritize get_context_doc and get_dir_resume operations instead of asking user"
+    "prority_operations": "Always prioritize get_context_doc and get_dir_resume operations instead of asking user",
+    "summary_attempt": "Always attempt to call make_dir_resume if an action can't be completed"
   },
   "dir_resume":{
-    "get_dir_resume":"use the function get_dir_resume to get a resume of the directory",
+    "get_dir_resume":"use the function make_dir_resume to get a resume of the directory",
     "denied_resume":"if the user denies the resume, stop and ask for information"
   },
   "context_doc": {
