@@ -41,7 +41,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_get_url(openAi,props->model);
     configure_terminate_callbacks(openAi,props->model);
 
-    CTextStack *context_resume = newCTextStack_string("Avaliable Context:\n\n\n");
+    CTextStack *context_resume = newCTextStack_string("Avaliable Context Documentations:\n\n\n");
 
     DtwStringArray *librarys  = dtw.list_files_recursively(CONTEX_DIR,false);
     for(int i = 0; i < librarys->size; i++){
@@ -52,15 +52,11 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
           printf("%sMAKING RESUME FOR: %s%s\n", YELLOW, current, RESET);
           char *resume = make_resume(props,content);
           if(resume){
-            CTextStack *name = newCTextStack_string(current);
-            CTextStack_self_replace(name,"/","._");
-            CTextStack_self_replace(name,"\\","_");
-            CTextStack_format(context_resume,"context name: %s\n",name->rendered_text);
+            CTextStack_format(context_resume,"context name: %s\n",current);
             CTextStack_format(context_resume,"resume:\n");
             CTextStack_format(context_resume,"%s\n",resume);
             CTextStack_text(context_resume,"============================================\n");
             free(resume);
-            CTextStack_free(name);
           } 
           free(content);
       }
