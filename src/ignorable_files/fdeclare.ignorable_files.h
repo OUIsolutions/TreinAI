@@ -7,4 +7,4 @@
 
 
 
-DtwStringArray *filter_ignorable_files(const char *listage_path);
+DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char *listage_path);
