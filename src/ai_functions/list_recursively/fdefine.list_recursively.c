@@ -11,20 +11,13 @@ char *agent_list_recursively(cJSON *args, void *pointer){
     if(!cJSON_IsString(path)){
         return NULL;
     }
-    DtwStringArray *all_itens = dtw.list_files_recursively(path->valuestring,false);
+    DtwStringArray *all_itens = list_files_recursively_not_incluidng_ignorable_files(path->valuestring);
     cJSON *all_intens_cjson = cJSON_CreateArray();
     for(int i = 0; i < all_itens->size; i++){
-
         char *current_file = all_itens->strings[i]; 
-
-        bool is_hidden = dtw_starts_with(current_file, ".");
-        if(!is_hidden){
-            char *joined = dtw_concat_path(path->valuestring, current_file);
-            cJSON_AddItemToArray(all_intens_cjson, cJSON_CreateString(joined));
-            free(joined);
-        }
-
+        cJSON_AddItemToArray(all_intens_cjson, cJSON_CreateString(current_file));
     }
+    
     dtw.string_array.free(all_itens);
     char *all_intens_string = cJSON_PrintUnformatted(all_intens_cjson);
     cJSON_Delete(all_intens_cjson);

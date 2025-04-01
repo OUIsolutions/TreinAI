@@ -19,27 +19,24 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
 
 
     CTextStack *dir_resume = newCTextStack_string("");
-    DtwStringArray *all_items = dtw.list_files_recursively(path->valuestring, false);
+    DtwStringArray *all_items = list_files_recursively_not_incluidng_ignorable_files(path->valuestring);
     for (int i = 0; i < all_items->size; i++) {
         char *current_file = all_items->strings[i];
-        bool is_hidden = dtw_starts_with(current_file, ".");
-        if (!is_hidden) {
-            char *joined = dtw_concat_path(path->valuestring, current_file);
-            char *content = dtw.load_string_file_content(joined);
-            if (content) {
-              printf("%s %s MAKING A RESUME OF: %s\n", YELLOW, props->model, current_file, RESET);
-
-                char *resume = make_resume(props, content);
-                if (resume) {
-                    CTextStack_format(dir_resume, "path_name: %s\n", current_file);
-                    CTextStack_format(dir_resume, "resume: %s\n", resume);
-                    CTextStack_text(dir_resume, "============================================\n");
-                    free(resume);
-                }
-                free(content);
-            }
-            free(joined);
+        char *content = dtw.load_string_file_content(current_file);
+        if(!content){
+            continue;
         }
+        printf("%s %s MAKING A RESUME OF: %s\n", YELLOW, props->model, current_file, RESET);
+        char *resume = make_resume(props, content);
+        if (resume) {
+            CTextStack_format(dir_resume, "path_name: %s\n", current_file);
+            CTextStack_format(dir_resume, "resume: %s\n", resume);
+            CTextStack_text(dir_resume, "============================================\n");
+            free(resume);
+        }
+        free(content);
+    
+    
     }
     dtw.string_array.free(all_items);
     return CTextStack_self_transform_in_string_and_self_clear(dir_resume);
