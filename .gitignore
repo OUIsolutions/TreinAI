@@ -5,6 +5,7 @@ keys.txt
 TreinAI
 *.o
 .TreinAiCache
+TreinAiContext
 *.ko
 macros.encrypt_key.h
 vgcore*
