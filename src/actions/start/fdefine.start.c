@@ -41,17 +41,34 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_get_url(openAi,props->model);
     configure_terminate_callbacks(openAi,props->model);
 
-    CTextStack *resume = newCTextStack_string("Avaliable libraries:\n\n\n");
-    CTextStack_text(resume,"|Name |Description|\n");
-    CTextStack_text(resume,"|---|---|\n");
-    DtwStringArray *librarys  = dtw.list_files_recursively(LIBRARYS_DIR,false);
+    CTextStack *context_resume = newCTextStack_string("Avaliable Context:\n\n\n");
+
+    DtwStringArray *librarys  = dtw.list_files_recursively(CONTEX_DIR,false);
     for(int i = 0; i < librarys->size; i++){
       char *current = librarys->strings[i];
-      char *resume = dtw.concat_path(current,"resume.md");
-      
-      
+      char *path = dtw.concat_path(CONTEX_DIR,current);
+      char *content =dtw.load_string_file_content(path);
+      if(content){
+          printf("%sMAKING RESUME FOR: %s%s\n", YELLOW, current, RESET);
+          char *resume = make_resume(props,content);
+          if(resume){
+            CTextStack *name = newCTextStack_string(current);
+            CTextStack_self_replace(name,"/",".");
+            CTextStack_self_replace(name,"\\",".");
+            CTextStack_format(context_resume,"name: %s\n",name->rendered_text);
+            CTextStack_format(context_resume,"resume:\n");
+            CTextStack_format(context_resume,"%s\n",resume);
+            CTextStack_text(context_resume,"============================================\n");
+            free(resume);
+            CTextStack_free(name);
+          } 
+          free(content);
+      }
+      free(path);
     }
-
+    dtw.string_array.free(librarys);
+    printf("%s\n",context_resume->rendered_text);
+    CTextStack_free(context_resume);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
     cJSON_Delete(rules);
     return openAi;
