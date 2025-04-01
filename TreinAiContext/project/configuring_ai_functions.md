@@ -8,8 +8,8 @@ the function signature must be declared in the fdeclare<function_name>.h file
 and the function implementation must be declared in the fdefine<function_name>.c file
 
 must be 2 functions defined, following the example below
-```c
 
+~~~c
 char *agent_<function_name>(cJSON *args, void *pointer){
     const char *model = (const char*)pointer;
     cJSON *path = cJSON_GetObjectItem(args, "path");
@@ -61,7 +61,8 @@ void configure_<function_name>(OpenAiInterface *openAi,const char *model){
     OpenAiInterface_add_parameters_in_callback(callback, "content", "Pass the content you want to write.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }
-```
+~~~
+
 if its a operation that changes something in the system, you must ask the user if he wants to do the operation
 
 
