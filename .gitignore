@@ -24,7 +24,7 @@ assets/docs
 *.map
 *.exp
 release
-src/imports
+/src/imports/
 # Precompiled Headers
 *.gch
 *.pch
