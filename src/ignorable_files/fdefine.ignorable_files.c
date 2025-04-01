@@ -125,6 +125,7 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
     cJSON *parsed_ignorable_files = cJSON_Parse(ignorable_files->data);
     if(!parsed_ignorable_files){
         printf("%sError: %s%s\n", RED, "Error parsing ignorable_files.json", RESET);
+        cJSON_Delete(parsed_ignorable_files);
         return NULL;
     }
 
@@ -149,7 +150,10 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
         }
         DtwStringArray_append(filtered, file);
     }
-    
+    if(git_ignore){
+        DtwStringArray_free(git_ignore);
+    }
+    cJSON_Delete(parsed_ignorable_files);
     DtwStringArray_free(all);
     return filtered;
 }
