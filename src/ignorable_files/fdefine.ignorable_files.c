@@ -5,7 +5,29 @@
 #include "../../src/imports/imports.globals.h"
 //silver_chain_scope_end
 
-
+bool is_file_native_ignorable(cJSON *native_ignorables,int total_ignorables, const char *file){
+    CTextStack *converted_file = newCTextStack_string(file);
+    for(int j = 0; j < total_ignorables; j++){
+        cJSON *ignorable_file = cJSON_GetArrayItem(native_ignorables, j);
+        if(CTextStack_index_of(converted_file,ignorable_file->valuestring) != -1){
+            CTextStack_free(converted_file);
+            return true;
+        }
+    }
+    CTextStack_free(converted_file);
+    return false;
+}
+bool is_file_a_hiden_file(const char *file){
+    long size = strlen(file);
+    for(int i = 1; i < size; i++){
+        if(file[i-1] == '\\' || file[i-1] == '/'){
+            if(file[i] == '.'){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char *listage_path){
     
     Asset *ignorable_files = get_asset("ignorable_files.json");
@@ -23,35 +45,15 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
     DtwStringArray *filtered = newDtwStringArray();
     DtwStringArray *all= dtw.list_files_recursively(listage_path,true);
     for (int i = 0; i < all->size; i++){
-        bool ignore = false;
         char *file = all->strings[i];
-        CTextStack *converted_file = newCTextStack_string(file);
-        for(int j = 0; j < total_ignorable_files; j++){
-            cJSON *ignorable_file = cJSON_GetArrayItem(parsed_ignorable_files, j);
-            if(CTextStack_index_of(converted_file,ignorable_file->valuestring) != -1){
-                ignore = true;
-                break;
-            }
-        }
-
-        if(ignore){
-            CTextStack_free(converted_file);
+  
+        if(is_file_native_ignorable(parsed_ignorable_files,total_ignorable_files,file)){
             continue;
         }
-        for(int i = 1; i < converted_file->size; i++){
-            if(converted_file->rendered_text[i-1] == '\\' || converted_file->rendered_text[i-1] == '/'){
-                if(converted_file->rendered_text[i] == '.'){
-                    ignore = true;
-                    break;
-                }
-            }
-        }
-        if(ignore){
-            CTextStack_free(converted_file);
+        if(is_file_a_hiden_file(file)){
             continue;
         }
         DtwStringArray_append(filtered, file);
-        CTextStack_free(converted_file);
     }
     
     DtwStringArray_free(all);
