@@ -10,7 +10,7 @@ and the function implementation must be declared in the fdefine<function_name>.c
 must be 2 functions defined, following the example below
 ```c
 
-char *agent_write_file(cJSON *args, void *pointer){
+char *agent_<function_name>(cJSON *args, void *pointer){
     const char *model = (const char*)pointer;
     cJSON *path = cJSON_GetObjectItem(args, "path");
     cJSON *content = cJSON_GetObjectItem(args, "content");
@@ -55,7 +55,7 @@ char *agent_write_file(cJSON *args, void *pointer){
     return (char*)"file wrotted";
 }
 
-void configure_write_file_callbacks(OpenAiInterface *openAi,const char *model){
+void configure_<function_name>(OpenAiInterface *openAi,const char *model){
     OpenAiCallback *callback = new_OpenAiCallback(agent_write_file, (void*)model, "write_file", "write a file content", false);
     OpenAiInterface_add_parameters_in_callback(callback, "path", "Pass the path you want to write.", "string", true);
     OpenAiInterface_add_parameters_in_callback(callback, "content", "Pass the content you want to write.", "string", true);
