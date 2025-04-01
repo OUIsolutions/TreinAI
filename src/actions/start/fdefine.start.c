@@ -53,8 +53,8 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
           char *resume = make_resume(props,content);
           if(resume){
             CTextStack *name = newCTextStack_string(current);
-            CTextStack_self_replace(name,"/",".");
-            CTextStack_self_replace(name,"\\",".");
+            CTextStack_self_replace(name,"/","._");
+            CTextStack_self_replace(name,"\\","_");
             CTextStack_format(context_resume,"context name: %s\n",name->rendered_text);
             CTextStack_format(context_resume,"resume:\n");
             CTextStack_format(context_resume,"%s\n",resume);
