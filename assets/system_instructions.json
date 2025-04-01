@@ -10,7 +10,7 @@
     "action_preference": "Prefer executing actions instead of asking questions",
     "execution_style": "Execute requests directly and without hesitation",
     "denied_operation": "if the user denied an operation, stop and ask user for information",
-    "memorization": "Always attempt to memorize when not immediately successful",
+    "set_context_memorization": "Always attempt to set_context_doc information when not immediately successful",
     "operations_times": "Make operations only once, unless the user asks for repetition"
   },
   "context_doc": {
