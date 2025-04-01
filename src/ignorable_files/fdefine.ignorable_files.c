@@ -21,7 +21,7 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
     int total_ignorable_files = cJSON_GetArraySize(parsed_ignorable_files);
 
     DtwStringArray *filtered = newDtwStringArray();
-    DtwStringArray *all= list_files_recursively(listage_path,true);
+    DtwStringArray *all= dtw.list_files_recursively(listage_path,true);
     for (int i = 0; i < all->size; i++){
         bool ignore = false;
         char *file = all->strings[i];
