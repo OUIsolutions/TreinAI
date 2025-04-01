@@ -11,7 +11,12 @@
     "execution_style": "Execute requests directly and without hesitation",
     "denied_operation": "if the user denied an operation, stop and ask user for information",
     "set_context_memorization": "Always attempt to set_context_doc information when not immediately successful",
-    "operations_times": "Make operations only once, unless the user asks for repetition"
+    "operations_times": "Make operations only once, unless the user asks for repetition",
+    "prority_operations": "Always prioritize get_context_doc and get_dir_resume operations instead of asking user"
+  },
+  "dir_resume":{
+    "get_dir_resume":"use the function get_dir_resume to get a resume of the directory",
+    "denied_resume":"if the user denies the resume, stop and ask for information"
   },
   "context_doc": {
     "set_context": "Whenever you have to ask the user how to do something, save a context doc with the information",
