@@ -9,13 +9,7 @@
 int main(int argc, char  *argv[]){
     start_namespace();
     
-    DtwStringArray *itens = list_files_recursively_not_incluidng_ignorable_files(".");
-    for(int i = 0; i < itens->size; i++){
-        printf("%s\n", itens->strings[i]);
-    }
-    DtwStringArray_free(itens);
-
-    return 0;
+  
   
     args_obj  = args.newCArgvParse(argc, argv);
     
