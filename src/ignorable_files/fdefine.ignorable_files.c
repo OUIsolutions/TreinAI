@@ -38,7 +38,18 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
             CTextStack_free(converted_file);
             continue;
         }
-        
+        for(int i = 1; i < converted_file->size; i++){
+            if(converted_file->rendered_text[i-1] == '\\' || converted_file->rendered_text[i-1] == '/'){
+                if(converted_file->rendered_text[i] == '.'){
+                    ignore = true;
+                    break;
+                }
+            }
+        }
+        if(ignore){
+            CTextStack_free(converted_file);
+            continue;
+        }
         DtwStringArray_append(filtered, file);
         CTextStack_free(converted_file);
     }
