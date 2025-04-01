@@ -5,6 +5,6 @@
 #include "../../imports/imports.consts.h"
 //silver_chain_scope_end
 
-char *agent_make_dir_resume(cJSON *args, ModelProps *props);
+char *agent_make_dir_resume(cJSON *args, void *pointe);
 
 void configure_make_dir_resume_callbacks(OpenAiInterface *openAi,  ModelProps *props);
