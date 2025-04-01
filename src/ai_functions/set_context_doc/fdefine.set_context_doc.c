@@ -18,7 +18,7 @@ char *agent_set_context_doc(cJSON *args, void *pointer){
 
     dtw.write_string_file_content(full_path, content->valuestring);
 
-    printf("%s %s APLY THE MODIFCATIONS IN: '%s'%s",YELLOW,model, full_path, PURPLE);
+    printf("%s %s SET CONTEXT IN: '%s'%s",YELLOW,model, full_path, PURPLE);
     bool aply = ask_yes_or_no();
     if(!aply){
         //means that file already exists
