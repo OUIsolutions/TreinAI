@@ -26,7 +26,9 @@ char *agent_execute_command(cJSON *args, void *pointer){
     free(full_command);
     char *output = dtw.load_string_file_content("cache.txt");
     if(!output){
-        return strdup("Error internal.");
+        char *result_str_only_status = (char*)malloc(30);
+        sprintf(result_str_only_status,"status %d\n", result);
+        return result_str_only_status;
     }
 
     dtw.remove_any("cache.txt");
