@@ -1,9 +1,9 @@
 ### Project Workflow and use case
 
-When the project starts at [main.c](/src/main.c) the first thing that it's to create the 
+When the project starts at [main.c](/src/main.c), the first thing that it's to create the 
 globals objects located in [globals](/src/globals.main_obj.c): 
 ### Globals 
-- **args_obj** object to store the argv keys , check[C-argv-parser](https://github.com/OUIsolutions/C-argv-parser)
+- **args_obj** object to store the argv keys, check[C-argv-parser](https://github.com/OUIsolutions/C-argv-parser)
 for more details
 
 - **config_path** object to store the path of the [config_json](/docs/json_model_config.md) file
@@ -13,7 +13,7 @@ for more details
   check [DoTheWorld Encryption Docs](https://github.com/OUIsolutions/DoTheWorld/blob/main/docs/encryption.md) for more details
 
 
-after it , it gets the **action** from the user,  which correspond to the first **argv[1]**argument of the program
+after it, it gets the **action** from the user, which corresponds to the first **argv[1]** argument of the program
 and then, call one of the actions functions located at [actions](/src/actions/)
 
 ### Actions

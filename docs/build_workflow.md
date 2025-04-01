@@ -1,10 +1,10 @@
 ### Build Workflow
 ### IMPORTANT:
-### For understand these part, read [build_instructions.md](/docs/build_instructions.md) and [build_toolchain.md](/docs/build_toolchain.md) first
+### For understanding these parts, read [build_instructions.md](/docs/build_instructions.md) and [build_toolchain.md](/docs/build_toolchain.md) first
 
 ### [main.lua](/build/main.lua)
 - verify if its to test a container 
-  - if its to test a container , creates and launch that container and end build
+  - if its to test a container, creates and launch that container and end build
 
 - creates the encryption key (basically its creates a file called **src/macros.encrypt_key.h** ) containing 
   a macro called **TreinAI_get_key** that its used to get the encryption key 

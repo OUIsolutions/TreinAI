@@ -1,24 +1,19 @@
 ### Build ToolChain Explanation
 ### IMPORTANT:
-### For understand these part, read [Build Instructions](/docs/build_instructions.md) first
+### For understanding these parts, read [Build Instructions](/docs/build_instructions.md) first
 
+The build process uses [Darwin](https://github.com/OUIsolutions/Darwin) to build the project in full folder mode, which means it recursively lists over the [Build Folder](/build/) and executes the code inside, starting with the [main.lua](/build/main.lua) file.
 
-The Build process use [darwin](https://github.com/OUIsolutions/Darwin) to build the project  in mode full folder, 
-witch means, it recursively list over the folder [Build Folder](/build/) and execute the code inside, starting 
-by the [main.lua](/build/main.lua) file.
-
-the build code use the following dependencies:
-
+The build code uses the following dependencies:
 
 ### LuaArgv
-[LuaArgv](https://github.com/OUIsolutions/LuaArgv) is a simple lib to parse argv, and its used to detect the build actions
+[LuaArgv](https://github.com/OUIsolutions/LuaArgv) is a simple library to parse argv, and it's used to detect the build actions.
 
-### LuaDotheWorld
-[LuaDoTheWorld](https://github.com/OUIsolutions/LuaDoTheWorld) its a wrapper of the original [DoTheWorld](https://github.com/OUIsolutions/LuaDoTheWorld) project, and [LuaDoTheWorld](https://github.com/OUIsolutions/LuaDoTheWorld) provides a series of 
-function, to manipulate files and directories, like hashers, listings, read and write in files, etc.
+### LuaDoTheWorld
+[LuaDoTheWorld](https://github.com/OUIsolutions/LuaDoTheWorld) is a wrapper of the original [DoTheWorld](https://github.com/OUIsolutions/LuaDoTheWorld) project, and [LuaDoTheWorld](https://github.com/OUIsolutions/LuaDoTheWorld) provides a series of functions to manipulate files and directories, like hashers, listings, read and write in files, etc.
 
 ### LuaShip
-[LuaShip](https://github.com/OUIsolutions/LuaShip) its a Podman/Docker wrapper , that its used to create some releases such as:
+[LuaShip](https://github.com/OUIsolutions/LuaShip) is a Podman/Docker wrapper that is used to create some releases such as:
 
 - release/AiRagTemplate64.exe
 - release/AiRagTemplate.deb
@@ -26,11 +21,10 @@ function, to manipulate files and directories, like hashers, listings, read and 
 - release/AiRagTemplate.out
 - release/AiRagTemplate.rpm
 
-all the builds functions,are located  in the [build functions](/build/build) part
-
+All the build functions are located in the [build functions](/build/build) part.
 
 ### LuaSilverChain
-[LuaSilverChain](https://github.com/OUIsolutions/LuaSilverChain) its a wrapper of the original [SilverChain](https://github.com/OUIsolutions/SilverChain) project, and [LuaSilverChain](https://github.com/OUIsolutions/LuaSilverChain) its used to organize the import order of the C codes,by making each type of file ,import others in a specific order, for example in the follwing tree:
+[LuaSilverChain](https://github.com/OUIsolutions/LuaSilverChain) is a wrapper of the original [SilverChain](https://github.com/OUIsolutions/SilverChain) project, and [LuaSilverChain](https://github.com/OUIsolutions/LuaSilverChain) is used to organize the import order of the C codes by making each type of file import others in a specific order, for example, in the following tree:
 ```txt
 src/
 ├── actions
@@ -57,7 +51,7 @@ src/
 │   └── fdefine.ai_functions.c
 ├── assets
 │   ├── fdeclare.assets.h
-│   ├── fdefine.asset.c
+│   ├── fdefine.assets.c
 │   ├── globals.assets.c
 │   └── types.assets.h
 ├── chat
@@ -67,7 +61,7 @@ src/
 │   ├── consts.actions.h
 │   ├── consts.flags.h
 │   ├── consts.paths.h
-│   └── macros.colrors.h
+│   └── macros.colors.h
 ├── confjson
 │   ├── fdeclare.conf_json.h
 │   └── fdefine.conf_json.c
@@ -77,7 +71,7 @@ src/
 │   ├── imports.dep_declare.h
 │   ├── imports.fdeclare.h
 │   ├── imports.fdefine.h
-│   ├── imports.fdefine,list_models.h
+│   ├── imports.fdefine.list_models.h
 │   ├── imports.globals.h
 │   ├── imports.macros.h
 │   └── imports.types.h
@@ -95,9 +89,9 @@ src/
     └── fdefine.dependencies.c
 ```
 
-all the files that starts with **fdefine** will "see" the files of **globals** , witch will see the files of fdeclare, and so on, this way, the code will be compiled in the right order, and the code will be more organized.
+All the files that start with **fdefine** will "see" the files of **globals**, which will see the files of fdeclare, and so on. This way, the code will be compiled in the right order, and the code will be more organized.
 
-check: [silverchain_organize.lua](/build/silver_chain_organize.lua) for see the order of importations:
+Check: [silverchain_organize.lua](/build/silver_chain_organize.lua) to see the order of importations:
 
 ```lua
     darwin.silverchain.generate({
@@ -115,9 +109,9 @@ check: [silverchain_organize.lua](/build/silver_chain_organize.lua) for see the 
 ```
 
 ### LuaCAmalgamator
-[LuaCAmalgamator](https://github.com/OUIsolutions/LuaCAmalgamator) its a wrapper of the original [CAmalgamator](https://github.com/OUIsolutions/CAmalgamator) project, and [LuaCAmalgamator](https://github.com/OUIsolutions/LuaCAmalgamator) its used to create a single file from the C files, this way, the code will be more organized, and the code will be more easy to read, and to maintain.
+[LuaCAmalgamator](https://github.com/OUIsolutions/LuaCAmalgamator) is a wrapper of the original [CAmalgamator](https://github.com/OUIsolutions/CAmalgamator) project, and [LuaCAmalgamator](https://github.com/OUIsolutions/LuaCAmalgamator) is used to create a single file from the C files. This way, the code will be more organized, and the code will be easier to read and maintain.
 
-check [amalgamation_build.lua](/build/build/amalgamation_build.lua) for see the amalgamation process:
+Check [amalgamation_build.lua](/build/build/amalgamation_build.lua) to see the amalgamation process:
 
 ```lua
 local already_amalgamated_done = false
@@ -139,4 +133,4 @@ end
 ```
 
 ### key_obfuscate
-key obfuscate its responsable to create the encryption key, and its used to create a file called **src/macros.encrypt_key.h** containing a macro called **AiRagTemplate_get_key** that its used to get the encryption key, check [key_obfuscate](https://github.com/OUIsolutions/key_obfuscate) for more details
+key_obfuscate is responsible for creating the encryption key, and it's used to create a file called **src/macros.encrypt_key.h** containing a macro called **AiRagTemplate_get_key** that is used to get the encryption key. Check [key_obfuscate](https://github.com/OUIsolutions/key_obfuscate) for more details.
