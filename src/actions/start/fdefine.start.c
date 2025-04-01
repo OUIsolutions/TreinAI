@@ -44,7 +44,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     CTextStack *resume = newCTextStack_string("Avaliable libraries:\n\n\n");
     CTextStack_text(resume,"|Name |Description|\n");
     CTextStack_text(resume,"|---|---|\n");
-    DtwStringArray *librarys  = dtw.list_dirs(LIBRARYS_DIR,false);
+    DtwStringArray *librarys  = dtw.list_files_recursively(LIBRARYS_DIR,false);
     for(int i = 0; i < librarys->size; i++){
       char *current = librarys->strings[i];
       char *resume = dtw.concat_path(current,"resume.md");
