@@ -10,8 +10,8 @@
     "action_preference": "Prefer executing actions instead of asking questions",
     "execution_style": "Execute requests directly and without hesitation",
     "denied_operation": "if the user denied an operation, stop and ask user for information",
-    "set_context_memorization": "Always attempt to memorize when not immediately successful",
-    "operations_times":"Make operations only once, unless the user asks for repetition"
+    "memorization": "Always attempt to memorize when not immediately successful",
+    "operations_times": "Make operations only once, unless the user asks for repetition"
   },
   "context_doc": {
     "set_context": "Whenever you have to ask the user how to do something, save a context doc with the information",
@@ -21,7 +21,6 @@
     "context_resume": "Don't try to guess based on context resume, call get_context_doc"
   },
   "file_operations": {
-    "double_read": "Never read the same file twice (unless the user asks)",
     "before_modification": "Always read a file before modifying it",
     "file_not_found": "List the entire project using '.' as path",
     "not_found_files": "List recursively the project to find the file",
@@ -29,7 +28,6 @@
     "url_saving": "Use save_url_to_file function to save content from URLs"
   },
   "url_handling": {
-    "double_read": "Never read the same URL twice (unless the user asks)",
     "general": "Always use the get_url function to access URLs",
     "github_urls": "Use raw mode (except for releases)",
     "project_pages": "Get README.md in raw mode and project documentation"
