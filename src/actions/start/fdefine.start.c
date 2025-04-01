@@ -9,7 +9,10 @@
 OpenAiInterface* initialize_openai_interface( ModelProps *props){
 
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
-    
+    if(!openAi){
+      printf("%sError: %s%s\n", RED, "No openai interface found", RESET);
+      return NULL;
+    }
     Asset * main_system_rules = get_asset("system_instructions.json");
     if(!main_system_rules){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
@@ -57,6 +60,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
       }
       free(path);
     }
+
     dtw.string_array.free(librarys);
     openai.openai_interface.add_system_prompt(openAi,context_resume->rendered_text);
     CTextStack_free(context_resume);

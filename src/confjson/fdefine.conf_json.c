@@ -7,13 +7,13 @@
 
 bool create_user_config_models_path(unsigned char *encryption_key, const char *path_model){
 
-    const char *homedir = path_model;
-    const char *path_models_formated = NULL;
+     char *homedir = (char*)path_model;
+     char *path_models_formated = NULL;
     
     if(!homedir){
         #if defined(__linux__)
             const char *home_director_absolut = getenv("HOME");
-            homedir = home_director_absolut?dtw.concat_path(home_director_absolut, ".config"):NULL;
+            homedir = home_director_absolut ?dtw.concat_path(home_director_absolut, ".config"):NULL;
         #elif defined(_WIN32)
             homedir = getenv("LOCALAPPDATA");
         #endif
@@ -24,6 +24,7 @@ bool create_user_config_models_path(unsigned char *encryption_key, const char *p
         }
 
         path_models_formated = dtw.concat_path(homedir, NAME_CHAT);//Não precisa de verificação de retorno, pois em erro é um segment fault.
+        free(homedir);
     }
 
     dtw.create_dir_recursively(path_models_formated);
@@ -34,6 +35,7 @@ bool create_user_config_models_path(unsigned char *encryption_key, const char *p
 
     config_path = dtw.concat_path(path_models_formated,hasher->hash);
     dtw.hash.free(hasher);
+    free(path_models_formated);
     return true;
 }
 
