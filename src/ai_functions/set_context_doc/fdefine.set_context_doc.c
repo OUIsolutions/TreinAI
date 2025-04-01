@@ -31,7 +31,7 @@ char *agent_set_context_doc(cJSON *args, void *pointer){
         }
         release_if_not_null(temp_content,free);
         release_if_not_null(full_path,free);
-        return (char*)"user canceled";
+        return (char*)"user denied the modifications";
     }
 
     release_if_not_null(temp_content,free);
