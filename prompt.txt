@@ -1,1 +1,1 @@
-leia fdefine.list_recursively.c e fdeclare.list_recursively.h
+crie um json de assets para make_resume e importe ele em make_resume

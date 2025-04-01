@@ -22,9 +22,9 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     DtwStringArray *all_items = dtw.list_files_recursively(path->valuestring, true);
     for (int i = 0; i < all_items->size; i++) {
         char *current_file = all_items->strings[i];
-        printf("%s %s MAKING A RESUME OF: %s\n", YELLOW, props->model, current_file, RESET);
         bool is_hidden = dtw_starts_with(current_file, ".");
         if (!is_hidden) {
+            printf("%s %s MAKING A RESUME OF: %s\n", YELLOW, props->model, current_file, RESET);
             char *content = dtw.load_string_file_content(current_file);
             if (content) {
                 char *resume = make_resume(props, content);
