@@ -13,6 +13,11 @@ char *agent_get_context_doc(cJSON *args, void *pointer){
     }
     char *full_path = dtw.concat_path(CONTEX_DIR, context_name->valuestring);
     char *content =dtw.load_string_file_content(full_path);
+    if(content == NULL){
+        printf("%s %s CONTEXT INFORMATION NOT FOUND: %s\n",RED,model, context_name->valuestring, RESET);
+        free(full_path);
+        return "not found";
+    }
     printf("%s %s LOADED CONTEXT INFORMATION: %s\n",YELLOW,model, context_name->valuestring, RESET);
     free(full_path);
     return content;
