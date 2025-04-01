@@ -5,5 +5,7 @@
     "test",
     "tests",
     "spec",
-    "specs"
+    "specs",
+    ".git",
+    ".svn"
 ]
