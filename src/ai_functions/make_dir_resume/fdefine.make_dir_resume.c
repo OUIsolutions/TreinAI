@@ -12,8 +12,8 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
         return NULL;
     }
 
+    CTextStack *dir_resume = newCTextStack_string("");
     DtwStringArray *all_items = dtw.list_files_recursively(path->valuestring, false);
-    cJSON *all_items_cjson = cJSON_CreateArray();
     for (int i = 0; i < all_items->size; i++) {
         char *current_file = all_items->strings[i];
         bool is_hidden = dtw_starts_with(current_file, ".");
@@ -23,7 +23,9 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
             if (content) {
                 char *resume = make_resume((ModelProps*)pointer, content);
                 if (resume) {
-                    cJSON_AddItemToArray(all_items_cjson, cJSON_CreateString(resume));
+                    CTextStack_format(dir_resume, "path_name: %s\n", joined);
+                    CTextStack_format(dir_resume, "content: %s\n", resume);
+                    CTextStack_text(dir_resume, "============================================\n");
                     free(resume);
                 }
                 free(content);
@@ -32,10 +34,10 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
         }
     }
     dtw.string_array.free(all_items);
-    char *all_items_string = cJSON_PrintUnformatted(all_items_cjson);
-    cJSON_Delete(all_items_cjson);
+    char *dir_resume_string = dir_resume->rendered_text;
+    CTextStack_free(dir_resume);
     printf("%s %s MADE DIR RESUME: %s\n", YELLOW, model, path->valuestring, RESET);
-    return all_items_string;
+    return dir_resume_string;
 }
 
 void configure_make_dir_resume_callbacks(OpenAiInterface *openAi, const char *model) {
