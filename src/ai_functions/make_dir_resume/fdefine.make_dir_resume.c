@@ -11,7 +11,7 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     if (!cJSON_IsString(path)) {
         return NULL;
     }
-    printf("%s %s MADE DIR RESUME OF: %s %s", YELLOW, props->model, path->valuestring, RESET);
+    printf("%s %s MADE DIR RESUME OF: '%s' (THESE PROCESS CAN CONSUME A LOT OF TOKENS) %s", YELLOW, props->model, path->valuestring, RESET);
     bool aply = ask_yes_or_no();
     if(!aply){
         return (char*)"user denied the operation";
