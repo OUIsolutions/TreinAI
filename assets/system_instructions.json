@@ -15,7 +15,7 @@
     "context_doc":{
       "set_context": "Whenever you had to ask user how to make something, save a context doc with the information",
       "get_context": "Always call get_context_doc before asking the user for information",
-      "extension":"save the context with Markdown extension",
+      "content":"Make the content as much easier for a AI to understand as possible",
       "context_resume":"Dont try to guess based on context resume, call get,_context_doc"
     },
     "file_operations": {
