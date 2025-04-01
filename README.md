@@ -19,18 +19,19 @@ TremAi itself release, can help you to understand the project, if you want acces
 
 | File | Description |
 | --- | --- |
-|[TremAi.c](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.c)| final Amalgamation of the project |
-|[TremAi.deb](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.deb)| Debian Package |
-|[TremAi.rpm](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.rpm)| RPM Package |
-|[TremAi.out](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI.out)| Linux Executable file |
-|[TremAi64.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAI64.exe)| Windows 64 bit Executable file |
-|[TremAii32.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.4/TreinAIi32.exe)| Windows 32 bit Executable file |
+|[TremAi.c](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.5/TreinAI.c)| final Amalgamation of the project |
+|[TremAi.deb](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.5/TreinAI.deb)| Debian Package |
+|[TremAi.rpm](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.5/TreinAI.rpm)| RPM Package |
+|[TremAi.out](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.5/TreinAI.out)| Linux Executable file |
+|[TremAi64.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.5/TreinAI64.exe)| Windows 64 bit Executable file |
+|[TremAii32.exe](https://github.com/SamuelHenriqueDeMoraisVitrio/TreinAI/releases/download/0.0.5/TreinAIi32.exe)| Windows 32 bit Executable file |
 
 ## Docs 
 | File | Description |
 | --- | --- |
 |[build_instructions.md](/docs/build_instructions.md)| Instructions for building the project. |
 |[cli_usage.md](/docs/cli_usage.md)| Usage guide for the CLI interface. |
+|[prompting.md](/docs/prompting.md)| Details about the prompting system. |
 |[project_dependencies.md](/docs/project_dependencies.md)| List of dependencies used in the project. |
 |[json_model_config.md](/docs/json_model_config.md)| Configuration of the JSON model. |
 |[build_toolchain.md](/docs/build_toolchain.md)| Details about the build toolchain used in the project. |
