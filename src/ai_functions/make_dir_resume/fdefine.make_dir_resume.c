@@ -18,7 +18,7 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     }
 
 
-    CTextStack *dir_resume = newCTextStack_string_empty();
+    CTextStack *dir_resume = newCTextStack_string("");
     DtwStringArray *all_items = list_files_recursively_not_incluidng_ignorable_files(path->valuestring);
     for (int i = 0; i < all_items->size; i++) {
         char *current_file = all_items->strings[i];
