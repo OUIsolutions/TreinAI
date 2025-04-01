@@ -13,24 +13,22 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     }
 
     CTextStack *dir_resume = newCTextStack_string("");
-    DtwStringArray *all_items = dtw.list_files_recursively(path->valuestring, false);
+    DtwStringArray *all_items = dtw.list_files_recursively(path->valuestring, true);
     for (int i = 0; i < all_items->size; i++) {
         char *current_file = all_items->strings[i];
         bool is_hidden = dtw_starts_with(current_file, ".");
         if (!is_hidden) {
-            char *joined = dtw.concat_path(path->valuestring, current_file);
-            char *content = dtw.load_string_file_content(joined);
+            char *content = dtw.load_string_file_content(current_file);
             if (content) {
                 char *resume = make_resume((ModelProps*)pointer, content);
                 if (resume) {
-                    CTextStack_format(dir_resume, "path_name: %s\n", joined);
-                    CTextStack_format(dir_resume, "content: %s\n", resume);
+                    CTextStack_format(dir_resume, "path_name: %s\n", current_file);
+                    CTextStack_format(dir_resume, "resume: %s\n", resume);
                     CTextStack_text(dir_resume, "============================================\n");
                     free(resume);
                 }
                 free(content);
             }
-            free(joined);
         }
     }
     dtw.string_array.free(all_items);
