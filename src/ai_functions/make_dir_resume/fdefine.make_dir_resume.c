@@ -18,7 +18,7 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     }
 
 
-    CTextStack *dir_resume = newCTextStack_string("");
+    CTextStack *dir_resume = newCTextStack_string_empty();
     DtwStringArray *all_items = list_files_recursively_not_incluidng_ignorable_files(path->valuestring);
     for (int i = 0; i < all_items->size; i++) {
         char *current_file = all_items->strings[i];
@@ -28,12 +28,16 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
         }
         printf("%s %s MAKING A RESUME OF: %s\n", YELLOW, props->model, current_file, RESET);
         char *resume = make_resume(props, content);
-        if (resume) {
-            CTextStack_format(dir_resume, "path_name: %s\n", current_file);
-            CTextStack_format(dir_resume, "resume: %s\n", resume);
-            CTextStack_text(dir_resume, "============================================\n");
-            free(resume);
+        
+        if (!resume) {
+            free(content);
+            continue;
         }
+
+        CTextStack_format(dir_resume, "path_name: %s\n", current_file);
+        CTextStack_format(dir_resume, "resume: %s\n", resume);
+        CTextStack_text(dir_resume, "============================================\n");
+        free(resume);
         free(content);
     
     
