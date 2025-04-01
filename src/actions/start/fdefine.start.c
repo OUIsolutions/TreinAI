@@ -86,6 +86,7 @@ int start_action(){
         char *message = collect_user_input();
         
         if(strcmp(message,"exit") == 0){
+          free(message);
           break;
         }
         if(strcmp(message,"clear") == 0){
@@ -94,6 +95,7 @@ int start_action(){
           #else
             system("clear");
           #endif
+          free(message);
           continue;
         }
         if(strcmp(message,"resset") == 0){
@@ -106,6 +108,7 @@ int start_action(){
           #endif
           openai.openai_interface.free(openAi);
           openAi = initialize_openai_interface(props);
+          free(message);
           continue;
         }
         openai.openai_interface.add_user_prompt(openAi, message);
@@ -113,6 +116,7 @@ int start_action(){
         OpenAiResponse *response =  OpenAiInterface_make_question_finish_reason_treated(openAi);
         if(openai.openai_interface.error(response)){
           printf("%sError: %s%s\n", RED, openai.openai_interface.get_error_message(response), RESET);
+          free(message);
           break;
         }
         const char *first_answer = openai.response.get_content_str(response,0);
