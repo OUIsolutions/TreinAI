@@ -30,8 +30,22 @@ bool is_file_a_hiden_file(const char *file){
 }
 
 DtwStringArray *parse_git_ignore(const char *git_ignore){
+    
+    DtwStringArray *parsed = newDtwStringArray();
     CTextArray *lines = CTextArray_split(git_ignore, '\n');
-    for(int i = 0; i lines-)
+    for(int i = 0; i <lines->size; i++){
+        CTextStack *item =lines->stacks[i]; 
+        CTextStack_self_trim(item);
+        if(lines->size == 0){
+            continue;
+        }
+        if(CTextStack_starts_with(item, "#")){
+            continue;
+        }
+        dtw.string_array.append(parsed,item->rendered_text);
+    }
+    CTextArray_free(lines);
+    return parsed;
 }
 
 DtwStringArray *try_to_get_git_ignore(const char *listage_path){
