@@ -16,7 +16,7 @@ char *agent_get_context_doc(cJSON *args, void *pointer){
     if(content == NULL){
         printf("%s %s CONTEXT INFORMATION NOT FOUND: %s\n",RED,model, context_name->valuestring, RESET);
         free(full_path);
-        return "not found";
+        return strdup("not found");
     }
     printf("%s %s LOADED CONTEXT INFORMATION: %s\n",YELLOW,model, context_name->valuestring, RESET);
     free(full_path);
@@ -24,7 +24,7 @@ char *agent_get_context_doc(cJSON *args, void *pointer){
 }
 
 void configure_get_context_doc_callbacks(OpenAiInterface *openAi,const char *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_get_context_doc, (void*)model, "get_context_doc", "get context doc", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_get_context_doc, (void*)model, "get_context_doc", "get context doc", true);
     OpenAiInterface_add_parameters_in_callback(callback, "context_name", "Pass the context name you want to get.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }

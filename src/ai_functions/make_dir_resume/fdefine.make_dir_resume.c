@@ -14,7 +14,7 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     printf("%s %s MADE DIR RESUME OF: '%s' (THESE PROCESS CAN CONSUME A LOT OF TOKENS) %s", YELLOW, props->model, path->valuestring, RESET);
     bool aply = ask_yes_or_no();
     if(!aply){
-        return (char*)"user denied the operation";
+        return strdup("user denied the operation");
     }
 
 
@@ -47,7 +47,7 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
 }
 
 void configure_make_dir_resume_callbacks(OpenAiInterface *openAi, ModelProps *props) {
-    OpenAiCallback *callback = new_OpenAiCallback(agent_make_dir_resume, (void*)props, "make_dir_resume", "make a resume of all files in a directory", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_make_dir_resume, (void*)props, "make_dir_resume", "make a resume of all files in a directory", true);
     OpenAiInterface_add_parameters_in_callback(callback, "path", "Pass the path you want to make a resume of.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }

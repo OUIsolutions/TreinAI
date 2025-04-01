@@ -21,7 +21,7 @@ char *agent_read_file(cJSON *args, void *pointer){
 }
 
 void configure_read_file_callbacks(OpenAiInterface *openAi,const char *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_read_file, (void*)model, "read_file", "read a file content", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_read_file, (void*)model, "read_file", "read a file content", true);
     OpenAiInterface_add_parameters_in_callback(callback, "path", "Pass the path you want to read.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }

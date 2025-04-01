@@ -34,7 +34,7 @@ char *agent_get_url(cJSON *args, void *pointer){
 }
 
 void configure_get_url(OpenAiInterface *openAi,const char *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_get_url,(void*)model, "get_url", "fetch a url", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_get_url,(void*)model, "get_url", "fetch a url", true);
     OpenAiInterface_add_parameters_in_callback(callback, "url", "Pass the url you want to fetch.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }

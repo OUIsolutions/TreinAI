@@ -27,7 +27,7 @@ char *agent_list_recursively(cJSON *args, void *pointer){
 
 
 void configure_list_recursively_callbacks(OpenAiInterface *openAi,const char *model){
-    OpenAiCallback *callback = new_OpenAiCallback(agent_list_recursively,(void*)model, "list_recursively", "list all files recursively in a path", false);
+    OpenAiCallback *callback = new_OpenAiCallback(agent_list_recursively,(void*)model, "list_recursively", "list all files recursively in a path", true);
     OpenAiInterface_add_parameters_in_callback(callback, "path", "Pass the path you want to list recursively.", "string", true);
     OpenAiInterface_add_callback_function_by_tools(openAi, callback);
 }
