@@ -14,7 +14,7 @@ char *agent_move_item(cJSON *args, void *pointer){
     printf("%s Move: '%s' to '%s'",YELLOW, src->valuestring, dest->valuestring, RESET);    
     bool move_item = ask_yes_or_no();
     if(!move_item){
-        return (char*)"user canceled";
+        return (char*)"user denied the modifications";
     }
     dtw.move_any(src->valuestring, dest->valuestring,false);
     return (char*)"item moved";

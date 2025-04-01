@@ -14,7 +14,7 @@ char *agent_copy_item(cJSON *args, void *pointer){
     printf("%s Copy: '%s' to '%s'",YELLOW, src->valuestring, dest->valuestring, RESET);    
     bool copy_item = ask_yes_or_no();
     if(!copy_item){
-        return (char*)"user canceled";
+        return (char*)"user denied the modifications";
     }
     dtw.copy_any(src->valuestring, dest->valuestring, false);
     printf("%s AI COPIED: %s to %s\n",YELLOW, src->valuestring, dest->valuestring, RESET);

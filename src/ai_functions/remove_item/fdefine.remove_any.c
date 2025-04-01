@@ -15,7 +15,7 @@ char *agent_remove_file(cJSON *args, void *pointer){
     printf("%s Remove: '%s'",YELLOW, path->valuestring, RESET);
     bool remove = ask_yes_or_no();
     if(!remove){
-        return (char*)"user canceled";
+        return (char*)"user denied the modifications";
     }
 
     dtw.remove_any(path->valuestring);

@@ -14,7 +14,7 @@ char *agent_execute_command(cJSON *args, void *pointer){
     printf("%s %s EXECUTE COMMAND: '%s'%s",YELLOW,model, command->valuestring, PURPLE);
     bool aply = ask_yes_or_no();
     if(!aply){
-        return strdup("User canceled.");
+        return strdup("user denied the command execution");
     }
     
     char *full_command = (char*)malloc(strlen(command->valuestring) + 100);

@@ -43,7 +43,7 @@ char *agent_write_file(cJSON *args, void *pointer){
            dtw.remove_any(path->valuestring);
         }
         release_if_not_null(temp_content,free);
-        return (char*)"user canceled";
+        return (char*)"user denied the modifications";
     }
 
     release_if_not_null(temp_content,free);
