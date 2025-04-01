@@ -13,7 +13,7 @@ char *agent_get_context_doc(cJSON *args, void *pointer){
     }
     char *full_path = dtw.concat_path(CONTEX_DIR, context_name->valuestring);
     char *content =dtw.load_string_file_content(full_path);
-    printf("%s %s READDED: %s\n",YELLOW,model, context_name->valuestring, RESET);
+    printf("%s %s LOADED CONTENT: %s\n",YELLOW,model, context_name->valuestring, RESET);
     free(full_path);
     return content;
 }

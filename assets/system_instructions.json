@@ -20,6 +20,6 @@
     "if its url its the main page of a project, always get the README.md in raw mode",
     "if its a main page of the project, try to get project documentation",
     "if user canceled a operation, stop the operation and return a message to user",
-    "Always try to call the ai_get_context_doc function to gather relevant information before asking the user for input or clarification."
+    "Always try to call the get_context_doc function to gather relevant information before asking the user for input or clarification."
 
 ]
