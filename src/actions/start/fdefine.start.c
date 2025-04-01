@@ -33,7 +33,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_get_context_doc_callbacks(openAi, props->model);
     configure_set_context_doc(openAi, props->model);
     configure_terminate_callbacks(openAi,props->model);
-    configure_make_dir_resume_callbacks(openAi,props->model);
+    configure_make_dir_resume_callbacks(openAi,props);
     CTextStack *context_resume = newCTextStack_string("Avaliable Context Documentations:\n\n\n");
 
     DtwStringArray *librarys  = dtw.list_files_recursively(CONTEX_DIR,false);
