@@ -73,6 +73,7 @@ int start_action(){
 
     OpenAiInterface *openAi = initialize_openai_interface(props);
     if(!openAi){
+        freeModelProps(props);
         return 1;
     }
     
