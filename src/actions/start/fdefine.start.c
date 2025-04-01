@@ -39,6 +39,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_remove_file_callbacks(openAi,props->model);
     configure_save_url_to_file(openAi,props->model);
     configure_get_url(openAi,props->model);
+    configure_get_context_doc_callbacks(openAi, props->model);
     configure_terminate_callbacks(openAi,props->model);
 
     CTextStack *context_resume = newCTextStack_string("Avaliable Context Documentations:\n\n\n");
