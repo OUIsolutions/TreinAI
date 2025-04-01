@@ -55,7 +55,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
             CTextStack *name = newCTextStack_string(current);
             CTextStack_self_replace(name,"/",".");
             CTextStack_self_replace(name,"\\",".");
-            CTextStack_format(context_resume,"name: %s\n",name->rendered_text);
+            CTextStack_format(context_resume,"context name: %s\n",name->rendered_text);
             CTextStack_format(context_resume,"resume:\n");
             CTextStack_format(context_resume,"%s\n",resume);
             CTextStack_text(context_resume,"============================================\n");
@@ -67,7 +67,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
       free(path);
     }
     dtw.string_array.free(librarys);
-    printf("%s\n",context_resume->rendered_text);
+    openai.openai_interface.add_system_prompt(openAi,context_resume->rendered_text);
     CTextStack_free(context_resume);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
     cJSON_Delete(rules);

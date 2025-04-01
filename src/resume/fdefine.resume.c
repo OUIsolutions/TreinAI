@@ -14,7 +14,7 @@ char *make_resume(ModelProps *props,const char *content){
     openai.openai_interface.add_system_prompt(openAi, "make the resume for AI understand");
     openai.openai_interface.add_system_prompt(openAi, "dont add extra informations, just the resume");
     CTextStack *text = newCTextStack_string_format("make a resume of %s",content);
-
+    openai.openai_interface.add_user_prompt(openAi,text->rendered_text);
     OpenAiResponse *response =  openai.openai_interface.make_question(openAi);
     if(openai.openai_interface.error(response)){
         printf("%sError: %s%s\n", RED, openai.openai_interface.get_error_message(response), RESET);
@@ -29,7 +29,8 @@ char *make_resume(ModelProps *props,const char *content){
         CTextStack_free(text);
         return NULL;
     }
+    char *copy_first_answer = strdup(first_answer);
     openai.openai_interface.free(openAi);
     CTextStack_free(text);
-    return strdup(first_answer);
+    return copy_first_answer;
 }
