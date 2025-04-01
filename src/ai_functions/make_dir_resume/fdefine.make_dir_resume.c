@@ -11,6 +11,12 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     if (!cJSON_IsString(path)) {
         return NULL;
     }
+    printf("%s %s MADE DIR RESUME OF: %s %s", YELLOW, props->model, path->valuestring, RESET);
+    bool aply = ask_yes_or_no();
+    if(!aply){
+        return (char*)"user denied the operation";
+    }
+
 
     CTextStack *dir_resume = newCTextStack_string("");
     DtwStringArray *all_items = dtw.list_files_recursively(path->valuestring, true);
@@ -35,7 +41,6 @@ char *agent_make_dir_resume(cJSON *args, void *pointer) {
     dtw.string_array.free(all_items);
     char *dir_resume_string = dir_resume->rendered_text;
     CTextStack_free(dir_resume);
-    printf("%s %s MADE DIR RESUME: %s\n", YELLOW, model, path->valuestring, RESET);
     return dir_resume_string;
 }
 
