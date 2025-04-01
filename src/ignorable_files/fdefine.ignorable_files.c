@@ -78,6 +78,12 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
         printf("%sError: %s%s\n", RED, "Error parsing ignorable_files.json", RESET);
         return NULL;
     }
+
+    DtwStringArray *git_ignore = try_to_get_git_ignore(listage_path);
+    if(git_ignore){
+        DtwStringArray_represent(git_ignore);
+    }
+
     int total_ignorable_files = cJSON_GetArraySize(parsed_ignorable_files);
 
     DtwStringArray *filtered = newDtwStringArray();
