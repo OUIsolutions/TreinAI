@@ -22,7 +22,7 @@
   },
   "file_operations": {
     "before_modification": "Always read a file before modifying it",
-    "file_not_found": "List the entire project using '.' as path an try to find the file",
+    "file_not_found": "if you dont find a file, list the project recursively to find it",
     "not_found_files": "List recursively the project to find the file",
     "directory_creation": "Not necessary to create directories manually",
     "url_saving": "Use save_url_to_file function to save content from URLs"

@@ -12,6 +12,10 @@ char *agent_read_file(cJSON *args, void *pointer){
         return NULL;
     }
     char *content =dtw.load_string_file_content(path->valuestring);
+    if(content == NULL){
+        printf("%s %s FILE '%s' NOT FOUND %s\n",RED,model,path->valuestring, RESET);
+        return "file_not_found";
+    }
     printf("%s %s READDED: %s\n",YELLOW,model, path->valuestring, RESET);
     return content;
 }
