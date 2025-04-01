@@ -82,6 +82,43 @@ DtwStringArray *try_to_get_git_ignore(const char *listage_path){
     return NULL;
 }
 
+bool is_git_ignrable_file(DtwStringArray *git_ignore, const char *file){
+    printf("file: %s\n", file);
+    CTextStack *stack_file = newCTextStack_string(file);
+    //testing dirs
+    for(int i = 0; i < git_ignore->size; i++){
+        char *git_ignorable = git_ignore->strings[i];
+    
+    
+        printf("git_ignorable: %s\n", git_ignorable);
+        if(CTextStack_index_of(stack_file,git_ignorable) != -1){
+            CTextStack_free(stack_file);
+            return true;
+        }
+        if(dtw_starts_with(git_ignorable,"*")){
+            CTextStack *formmated_git_ignorable = newCTextStack_string(git_ignorable);
+            CTextStack_self_substr(formmated_git_ignorable, 1, formmated_git_ignorable->size);
+            if(dtw_ends_with(file,formmated_git_ignorable->rendered_text)){
+                CTextStack_free(stack_file);
+                CTextStack_free(formmated_git_ignorable);
+                return true;
+            }
+            CTextStack_free(formmated_git_ignorable);
+        }
+        if(dtw_ends_with(git_ignorable,"*")){
+            CTextStack *formmated_git_ignorable = newCTextStack_string(git_ignorable);
+            CTextStack_self_substr(formmated_git_ignorable, 0, formmated_git_ignorable->size-1);
+            if(dtw_starts_with(file,formmated_git_ignorable->rendered_text)){
+                CTextStack_free(stack_file);
+                CTextStack_free(formmated_git_ignorable);
+                return true;
+            }
+            CTextStack_free(formmated_git_ignorable);
+        }
+    }
+    CTextStack_free(stack_file);
+    return false;
+}
 DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char *listage_path){
     
     Asset *ignorable_files = get_asset("ignorable_files.json");
@@ -96,14 +133,6 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
     }
 
     DtwStringArray *git_ignore = try_to_get_git_ignore(listage_path);
-    if(git_ignore){
-        for(int i = 0; i < git_ignore->size; i++){
-            char *item = git_ignore->strings[i];
-           printf("git_ignore: (%s)\n", item);
-        }
-    }
-    printf("--------------------\n");
-
     int total_ignorable_files = cJSON_GetArraySize(parsed_ignorable_files);
 
     DtwStringArray *filtered = newDtwStringArray();
@@ -117,7 +146,11 @@ DtwStringArray *list_files_recursively_not_incluidng_ignorable_files(const char 
         if(is_file_a_hiden_file(file)){
             continue;
         }
-
+        if(git_ignore){
+            if(is_git_ignrable_file(git_ignore,file)){
+                continue;
+            }
+        }
         DtwStringArray_append(filtered, file);
     }
     
