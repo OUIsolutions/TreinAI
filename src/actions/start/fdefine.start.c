@@ -15,17 +15,8 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
       printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
       return NULL;
     }
-    cJSON *rules = cJSON_Parse((char*)main_system_rules->data);
-    if(!rules){
-      printf("%sError: %s%s\n", RED, "No system instructions found", RESET);
-      return NULL;
-    }
-    int size = cJSON_GetArraySize(rules);
-
-    for(int i = 0; i <size;i++){
-      cJSON *current_rule = cJSON_GetArrayItem(rules,i);
-      openai.openai_interface.add_system_prompt(openAi,cJSON_GetStringValue(current_rule));
-    }
+    openai.openai_interface.add_system_prompt(openAi, main_system_rules->data);
+    
     char name_message[100];
     snprintf(name_message,sizeof(name_message)-1,"your model base  its %s",props->model);
 
@@ -67,7 +58,6 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     openai.openai_interface.add_system_prompt(openAi,context_resume->rendered_text);
     CTextStack_free(context_resume);
     printf("%sWelcome to the %s, runing: %s interface%s\n", BLUE, NAME_CHAT, props->model , RESET);
-    cJSON_Delete(rules);
     return openAi;
 }
 
