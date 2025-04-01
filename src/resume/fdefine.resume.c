@@ -5,12 +5,13 @@
 #include "../imports/imports.globals.h"
 //silver_chain_scope_end
 
-
-
 char *make_resume(ModelProps *props,const char *content){
+    if (strlen(content) < 500) {
+        return strdup(content);
+    }
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
     openai.openai_interface.set_cache(openAi,CACHE_POINT,true);
-    openai.openai_interface.add_system_prompt(openAi,"make the resume of at most 500 characters");    
+    openai.openai_interface.add_system_prompt(openAi,"make the resume of at most 1/5 of the original size");    
     openai.openai_interface.add_system_prompt(openAi, "make the resume for AI understand");
     openai.openai_interface.add_system_prompt(openAi, "dont add extra informations, just the resume");
     CTextStack *text = newCTextStack_string_format("make a resume of %s",content);
