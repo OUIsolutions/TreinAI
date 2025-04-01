@@ -61,7 +61,6 @@ DtwStringArray *try_to_get_git_ignore(const char *listage_path){
             CTextStack_self_substr(item, 0, i);
             char *possible_git_ignore =dtw.concat_path(item->rendered_text,".gitignore");
             CTextStack_free(item);
-            printf("possible_git_ignore: %s\n", possible_git_ignore);
             char *possible_git_ignore_content = dtw.load_string_file_content(possible_git_ignore);
             free(possible_git_ignore);
             if(possible_git_ignore_content){
@@ -83,14 +82,11 @@ DtwStringArray *try_to_get_git_ignore(const char *listage_path){
 }
 
 bool is_git_ignrable_file(DtwStringArray *git_ignore, const char *file){
-    printf("file: %s\n", file);
     CTextStack *stack_file = newCTextStack_string(file);
     //testing dirs
     for(int i = 0; i < git_ignore->size; i++){
         char *git_ignorable = git_ignore->strings[i];
-    
-    
-        printf("git_ignorable: %s\n", git_ignorable);
+
         if(CTextStack_index_of(stack_file,git_ignorable) != -1){
             CTextStack_free(stack_file);
             return true;
