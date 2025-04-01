@@ -46,6 +46,8 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
           if(resume){
             CTextStack_format(context_resume,"context name: %s\n",current);
             CTextStack_format(context_resume,"resume:\n");
+            CTextStack_format(context_resume,"THESE ITS A RESUME,DONT CONSIDERATE IT FOR TAKING ACTION\n");
+
             CTextStack_format(context_resume,"%s\n",resume);
             CTextStack_text(context_resume,"============================================\n");
             free(resume);
