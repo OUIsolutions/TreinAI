@@ -6,6 +6,7 @@
 //silver_chain_scope_end
 
 char * collect_user_input(){
+  fflush(stdout);
   char *buffer = (char*)malloc(100);
   int buffer_size = 100;
   int i = 0;
@@ -18,7 +19,7 @@ char * collect_user_input(){
       break;
     }
 
-    if(i >= buffer_size - 1){
+    if(i >= buffer_size - 2){
       buffer_size *= 2;
       buffer = (char*)realloc(buffer, buffer_size);
     }

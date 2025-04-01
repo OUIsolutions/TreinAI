@@ -78,7 +78,6 @@ int start_action(){
     
     while (true){
         printf("%s >Your Message:%s", GREEN,PURPLE);
-       fflush(stdout);
         char *message = collect_user_input();
         
         if(strcmp(message,"exit") == 0){
