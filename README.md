@@ -17,7 +17,7 @@ A CLI tool to help you to Code and execute command highly inspired on Copilot an
 - **Prompting System**: A robust prompting system for better interaction with the model.
 - **Customizable**: Easily customize the project to fit your needs.
 - **Take actions automatically**: Take actions automatically when needed, like creating a file or executing a command.
-## Test Release
+## Releases
 TremAi itself release, can help you to understand the project, if you want access [cli_usage.md](/docs/cli_usage.md) and learn how to use the template, by using the CLI itself that it generates
 
 | File | Description |
