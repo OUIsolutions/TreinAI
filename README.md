@@ -9,11 +9,14 @@ A CLI tool to help you to Code and execute command highly inspired on Copilot an
 ## Features
 
 - **Model Configuration**: Easily configure and manage different language models.
-- **API Integration**: Seamless integration with various APIs for enhanced functionality.
+- **API Integration**: Seamless integration with various APIs like (grok,deepseek,gpt,claude)for enhanced functionality.
 - **CLI Interface**: Build command-line interfaces with straightforward commands.
 - **Cross-Platform Builds**: Support for building on Linux and Windows.
 - **Encryption**: Secure storage of configuration files with encryption.
-
+- **Listage files**: List files in a directory automatically when needs.
+- **Prompting System**: A robust prompting system for better interaction with the model.
+- **Customizable**: Easily customize the project to fit your needs.
+- **Take actions automatically**: Take actions automatically when needed, like creating a file or executing a command.
 ## Test Release
 TremAi itself release, can help you to understand the project, if you want access [cli_usage.md](/docs/cli_usage.md) and learn how to use the template, by using the CLI itself that it generates
 
