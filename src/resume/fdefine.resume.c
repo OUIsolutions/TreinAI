@@ -42,11 +42,9 @@ char *make_resume(ModelProps *props, const char *content) {
 
     char *possile_result = dtw.encryption.load_string_file_content_hex(encryption, cache_response_location);
     if(possile_result != NULL){
-        printf("%sCache hit: %s%s\n", GREEN, cache_response_location, RESET);
         openai.openai_interface.free(openAi);
         CTextStack_free(text);
         free(cache_response_location);
-        free(possile_result);
         return possile_result;
     }
     //==================end cache===============================================
