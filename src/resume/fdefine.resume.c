@@ -5,7 +5,7 @@
 #include "../imports/imports.globals.h"
 //silver_chain_scope_end
 
-char *make_resume(ModelProps *props, const char *content,int resume_size) {
+char *make_resume(ModelProps *props, const char *content) {
     OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model); 
     Asset *role_system = get_asset("make_resume_role_system.json");
     if(!role_system){

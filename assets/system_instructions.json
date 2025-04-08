@@ -47,8 +47,7 @@
     "general": "Always use the get_url function to access URLs",
     "github_urls": "Always get github urls in Raw mode (except for releases)",
     "github_raw": "Always get github urls in Raw mode for GitHub URLs",
-    "project_pages": "Always Get README.md in raw mode and project documentation",
-    "found_links": "read links that you think will be useful for solve the user problem",
+    "project_pages": "Always Get README.md in raw mode and project documentation"
   },
   "special_operations": {
     "troubleshooting": "Execute and solve problems with commands that aren't working",
