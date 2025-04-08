@@ -24,6 +24,7 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     snprintf(name_message,sizeof(name_message)-1,"your model base  its %s",props->model);
 
     openai.openai_interface.add_system_prompt(openAi,name_message);
+    configure_get_context_doc_callbacks(openAi, props->model);
     configure_list_recursively_callbacks(openAi,props->model);
     configure_read_file_callbacks(openAi,props->model);
     configure_move_item_callbacks(openAi,props->model);
@@ -33,7 +34,6 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
     configure_remove_file_callbacks(openAi,props->model);
     configure_save_url_to_file(openAi,props->model);
     configure_get_url(openAi,props->model);
-    configure_get_context_doc_callbacks(openAi, props->model);
     configure_set_context_doc(openAi, props->model);
     configure_terminate_callbacks(openAi,props->model);
     configure_make_dir_resume_callbacks(openAi,props);
