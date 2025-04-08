@@ -1,7 +1,6 @@
 {
     "behavior": {
-        "resume_size": "make the resume of at most 200 chars",
-        "ai_understanding": "make the resume for AI understand",
-        "resume_style": "explain what its in the file, not the file itself"
+        "resume_size": "write at most 200 chars",
+        "ai_understanding": "write for AI understand"
     }
 }

@@ -15,7 +15,7 @@ char *make_resume(ModelProps *props, const char *content) {
     }
     openai.openai_interface.add_system_prompt(openAi, role_system->data);
     
-    CTextStack *text = newCTextStack_string_format("make a resume of %s", content);
+    CTextStack *text = newCTextStack_string_format("what contents are here:%s", content);
     openai.openai_interface.add_user_prompt(openAi, text->rendered_text);
 
     //==================cache test===============================================
