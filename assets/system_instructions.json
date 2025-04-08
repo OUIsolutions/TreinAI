@@ -45,10 +45,11 @@
 
   "url_handling": {
     "general": "Always use the get_url function to access URLs",
-    "github_urls": "Use raw mode (except for releases)",
-    "github_raw": "Use raw mode for GitHub URLs",
-    "project_pages": "Get README.md in raw mode and project documentation",
-    "found_links": "always try to go over the links to get more information"
+    "github_urls": "Always get github urls in Raw mode (except for releases)",
+    "github_raw": "Always get github urls in Raw mode for GitHub URLs",
+    "project_pages": "Always Get README.md in raw mode and project documentation",
+    "found_links": "always try to go over the links to get more information",
+    "stop_getting_links": "Stop getting links when you find  enough information"
   },
   "special_operations": {
     "troubleshooting": "Execute and solve problems with commands that aren't working",
