@@ -17,9 +17,9 @@
   },
   "commands":{
     "iteractions": "USE OPTIONS LIKE (-y,--no-interactive, OR CI=true) (adapt to your needs) for commands that require user interaction",
-    "npx": "Use CI=true in the beguinning of the command to avoid user interaction",
-    "npm": "Use CI=true in the beguinning of the command to avoid user interaction",
-    "apt": "Use -y in the beguinning of the command to avoid user interaction"
+    "when_on_npx": "Use CI=true in the beguinning of the command to avoid user interaction",
+    "when_on_npm": "Use CI=true in the beguinning of the command to avoid user interaction",
+    "when_on_apt": "Use -y in the beguinning of the command to avoid user interaction"
   },
   "dir_resume":{
     "make_dir_resume":"Always call make_dir_resume before asking the user for information",
