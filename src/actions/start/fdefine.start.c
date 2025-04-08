@@ -45,14 +45,12 @@ OpenAiInterface* initialize_openai_interface( ModelProps *props){
       char *path = dtw.concat_path(CONTEX_DIR,current);
       char *content =dtw.load_string_file_content(path);
       if(content){
-          printf("%sMAKING RESUME FOR: %s\n", YELLOW, current);
+          printf("%sMAKING RESUME FOR: %s%s\n", YELLOW, current, RESET);
           char *resume = make_resume(props,content);
-          printf("\t%s\n", resume);
-          printf("==========================================%s\n",RESET);
           if(resume){
+            CTextStack_format(context_resume,"THESE ITS A RESUME,DONT CONSIDERATE IT FOR TAKING ACTION\n");
             CTextStack_format(context_resume,"context name: %s\n",current);
             CTextStack_format(context_resume,"resume:\n");
-            CTextStack_format(context_resume,"THESE ITS A RESUME,DONT CONSIDERATE IT FOR TAKING ACTION\n");
 
             CTextStack_format(context_resume,"%s\n",resume);
             CTextStack_text(context_resume,"============================================\n");
