@@ -1,8 +1,7 @@
 {
     "behavior": {
-        "resume_size": "make the resume of at most 1/5 of the original size and at most 2000 characters",
+        "resume_size": "make the resume of at most 200 chars",
         "ai_understanding": "make the resume for AI understand",
-        "code_inclusion": "always put functions,class,methods,global variables, and other code-related information in the resume",
         "extra_information": "dont add extra informations, just the resume"
     }
 }
