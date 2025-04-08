@@ -1,6 +1,6 @@
 {
+    "size": "write at most 50 chars",
     "behavior": {
-        "resume_size": "write at most 200 chars",
         "ai_understanding": "write for AI understand"
     }
 }

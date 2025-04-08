@@ -32,7 +32,9 @@
     "get_context": "Always call get_context_doc before asking the user for information",
     "context_handling": "Whenever you need to ask the user how to do something, save a context doc with the information",
     "content": "Make the content as much easier for an AI to understand as possible",
-    "context_resume": "Don't try to guess based on context resume, call get_context_doc"
+    "context_gathering": "Don't try to guess based on context resume, call get_context_doc",
+    "context_gathering2": "call get_context_doc as most as possible to get information"
+
   },
   "file_operations": {
     "before_modification": "Always read a file before modifying it",
