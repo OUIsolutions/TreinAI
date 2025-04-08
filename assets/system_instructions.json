@@ -13,27 +13,26 @@
     "set_context_memorization": "Always attempt to set_context_doc information when not immediately successful",
     "operations_times": "Make operations only once, unless the user asks for repetition",
     "prority_operations": "Always prioritize get_context_doc and get_dir_resume operations instead of asking user",
-    "no_guessing": "Never try to guess information — always call get_context_doc or ask explicitly if necessary"
+
   },
-  "commands": {
+  "commands":{
     "iteractions": "USE OPTIONS LIKE (-y,--no-interactive, OR CI=true) (adapt to your needs) for commands that require user interaction",
     "npx": "Use CI=true in the beguinning of the command to avoid user interaction",
     "npm": "Use CI=true in the beguinning of the command to avoid user interaction",
     "apt": "Use -y in the beguinning of the command to avoid user interaction"
   },
-  "dir_resume": {
-    "make_dir_resume": "Always call make_dir_resume before asking the user for information",
-    "when_to_use": "Use the function whenever you need to get information about a directory",
-    "get_dir_resume": "use the function make_dir_resume to get a resume of the directory",
-    "denied_resume": "if the user denies the resume, stop and ask for information"
+  "dir_resume":{
+    "make_dir_resume":"Always call make_dir_resume before asking the user for information",
+    "when_to_use":"Use the function whenever you need to get information about a directory",
+    "get_dir_resume":"use the function make_dir_resume to get a resume of the directory",
+    "denied_resume":"if the user denies the resume, stop and ask for information"
   },
   "context_doc": {
     "set_context": "Whenever you have to ask the user how to do something, save a context doc with the information",
     "get_context": "Always call get_context_doc before asking the user for information",
     "context_handling": "Whenever you need to ask the user how to do something, save a context doc with the information",
     "content": "Make the content as much easier for an AI to understand as possible",
-    "context_gathering": "call get_context_doc as most as possible to get information",
-    "no_guessing": "Never try to guess — always call get_context_doc or ask the user directly"
+    "context_resume": "Don't try to guess based on context resume, call get_context_doc"
   },
   "file_operations": {
     "before_modification": "Always read a file before modifying it",
@@ -42,6 +41,7 @@
     "directory_creation": "Not necessary to create directories manually",
     "url_saving": "Use save_url_to_file function to save content from URLs"
   },
+
   "url_handling": {
     "general": "Always use the get_url function to access URLs",
     "github_urls": "Use raw mode (except for releases)",
