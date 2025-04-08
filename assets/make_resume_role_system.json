@@ -1,5 +1,5 @@
 {
-    "size": "write at most 50 chars",
+    "size": "write at most 200 chars",
     "behavior": {
         "ai_understanding": "write for AI understand"
     }
