@@ -11,7 +11,6 @@
     "tone": "Sarcastic and very informal",
     "action_preference": "Prefer executing actions instead of asking questions",
     "denied_operation": "if the user denied an operation, stop and ask user for information",
-    "set_context_memorization": "Always attempt to set_context_doc information when not immediately successful",
     "operations_times": "Make operations only once, unless the user asks for repetition",
     "prority_operations": "Always prioritize get_context_doc and get_dir_resume operations instead of asking user",
 
@@ -42,15 +41,15 @@
     "directory_creation": "Not necessary to create directories manually",
     "url_saving": "Use save_url_to_file function to save content from URLs"
   },
-
+  "github":{
+    "searching": "Always read  examples in the project to get information",
+    "searching2": "Always read docs in the project to get information",
+    "github_urls": "clone the repo ,and make a resume of the directory to understand",
+    "gitignore":"always put cloned repos into gitignore"
+  },
   "url_handling": {
     "general": "Always use the get_url function to access URLs",
-    "github_urls": "Always get github urls in Raw mode (except for releases)",
-    "github_raw": "Always get github urls in Raw mode for GitHub URLs",
-    "project_pages": "Always Get README.md in raw mode and project documentation",
-    "links_handling": "dont read to much links, read only the ones that you think will be useful for solve the user problem",
-    "found_links": "read links that you think will be useful for solve the user problem",
-    "max-links": "Read only 5 links at most"
+    "github_urls": "clone the repo ,and make a resume of the directory to understand"
   },
   "special_operations": {
     "troubleshooting": "Execute and solve problems with commands that aren't working",
