@@ -18,7 +18,7 @@ char *make_resume(ModelProps *props, const char *content) {
     CTextStack *text = newCTextStack_string_format("make a resume of %s", content);
     openai.openai_interface.add_user_prompt(openAi, text->rendered_text);
 
-    //==================cache test 
+    //==================cache test===============================================
       
     DtwHash *hasher = dtw.hash.newHash();
     char *model = cJSON_GetObjectItem(openAi->body_object, "model")->valuestring;
@@ -26,9 +26,30 @@ char *make_resume(ModelProps *props, const char *content) {
     char *menssages = cJSON_Print(openAi->messages);
     dtw.hash.digest_string(hasher, menssages);
     free(menssages);
+    #if defined(__linux__)
+        const char *home_dir = getenv("HOME");
+    #endif 
+    #if defined(_WIN32)
+        const char *home_dir = getenv("LOCALAPPDATA");
+    #endif 
+    if(!home_dir){
+        home_dir = "./";
+    }
+    char *path = dtw.concat_path(home_dir, ".TreinAiCacche");
+    char *cache_response_location = dtw.concat_path(path, hasher->hash);
+    free(path);
+    dtw.hash.free(hasher);
 
-    
-
+    char *possile_result = dtw.encryption.load_string_file_content_hex(encryption, cache_response_location);
+    if(possile_result != NULL){
+        printf("%sCache hit: %s%s\n", GREEN, cache_response_location, RESET);
+        openai.openai_interface.free(openAi);
+        CTextStack_free(text);
+        free(cache_response_location);
+        free(possile_result);
+        return possile_result;
+    }
+    //==================end cache===============================================
 
     OpenAiResponse *response = openai.openai_interface.make_question(openAi);
     if (openai.openai_interface.error(response)) {
@@ -44,7 +65,8 @@ char *make_resume(ModelProps *props, const char *content) {
         CTextStack_free(text);
         return NULL;
     }
-    
+    dtw.encryption.write_string_file_content_hex(encryption, cache_response_location, first_answer);
+
 
     char *copy_first_answer = strdup(first_answer);
     
