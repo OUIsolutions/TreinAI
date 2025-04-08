@@ -6,22 +6,14 @@
 //silver_chain_scope_end
 
 char *make_resume(ModelProps *props, const char *content) {
-    if (strlen(content) < 500) {
-        return strdup(content);
-    }
-    OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model);
-    openai.openai_interface.set_cache(openAi, CACHE_POINT, true);
-    
+    OpenAiInterface *openAi = openai.openai_interface.newOpenAiInterface(props->url, props->key, props->model); 
     Asset *role_system = get_asset("make_resume_role_system.json");
     if(!role_system){
         printf("%sError: %s%s\n", RED, "Role make_resume_role_system.json not found", RESET);
         openai.openai_interface.free(openAi);
         return NULL;
     }
-
     openai.openai_interface.add_system_prompt(openAi, role_system->data);
-    
-    
     CTextStack *text = newCTextStack_string_format("make a resume of %s", content);
     openai.openai_interface.add_user_prompt(openAi, text->rendered_text);
     OpenAiResponse *response = openai.openai_interface.make_question(openAi);
@@ -38,6 +30,7 @@ char *make_resume(ModelProps *props, const char *content) {
         CTextStack_free(text);
         return NULL;
     }
+    
     char *copy_first_answer = strdup(first_answer);
     openai.openai_interface.free(openAi);
     CTextStack_free(text);
