@@ -1,1 +1,0 @@
-crie um json de assets para make_resume e importe ele em make_resume
